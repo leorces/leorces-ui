@@ -22,7 +22,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html title={'Leorces'} lang="en" className={roboto.variable}>
+        <html lang="en" className={roboto.variable}>
         <body>
         <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>

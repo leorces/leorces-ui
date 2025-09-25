@@ -1,9 +1,19 @@
+import CssBaseline from "@mui/material/CssBaseline";
+import AppHeader from "@/components/layout/AppHeader";
+import Toolbar from "@mui/material/Toolbar";
+import Box from "@mui/material/Box";
+
 export default ({
                     children,
                 }: Readonly<{
     children: React.ReactNode;
 }>) => (
-    <div>
-        {children}
-    </div>
+    <>
+        <CssBaseline/>
+        <AppHeader/>
+        <Box component="main" sx={{p: 3}}>
+            <Toolbar/>
+            {children}
+        </Box>
+    </>
 )

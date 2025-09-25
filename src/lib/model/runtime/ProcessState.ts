@@ -1,0 +1,7 @@
+export enum ProcessState {
+    ACTIVE = 'ACTIVE',
+    COMPLETED = 'COMPLETED',
+    CANCELED = 'CANCELED',
+    TERMINATED = 'TERMINATED',
+    INCIDENT = 'INCIDENT'
+}
