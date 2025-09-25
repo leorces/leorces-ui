@@ -1,20 +1,11 @@
 import * as React from 'react';
-import {
-    Link,
-    Paper,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TablePagination,
-    TableRow
-} from '@mui/material';
+import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow} from '@mui/material';
 import format from "@/lib/utils/DateFormatUtils";
 import {PageableData} from "@/lib/model/pagination/PageableData";
 import {Process} from "@/lib/model/runtime/Process";
-import StateBadge from "@/components/badge/StateBadge";
-import EmptyState from "@/components/state/EmptyState";
+import StateBadge from "@/components/StateBadge";
+import EmptyState from "@/components/EmptyState";
+import AppLink from "@/components/AppLink";
 
 interface ProcessesTableProps {
     data: PageableData<Process> | null;
@@ -60,10 +51,14 @@ export default function ProcessesTable({data, loading, onPageChange}: ProcessesT
                         {data.data.map((process) => (
                             <TableRow key={process.id}>
                                 <TableCell>
-                                    <Link href="#" underline="hover">{process.id}</Link>
+                                    <AppLink href={`/processes/${process.id}`}>
+                                        {process.id}
+                                    </AppLink>
                                 </TableCell>
                                 <TableCell>
-                                    <Link href="#" underline="hover">{process.definition.name}</Link>
+                                    <AppLink href={`/definitions/${process.definition.id}`}>
+                                        {process.definition.name}
+                                    </AppLink>
                                 </TableCell>
                                 <TableCell>{process.businessKey}</TableCell>
                                 <TableCell><StateBadge state={process.state}/></TableCell>

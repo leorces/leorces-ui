@@ -4,7 +4,7 @@ import {PageableData} from "@/lib/model/pagination/PageableData";
 import {groupDefinitionsByKey, GroupedDefinition} from "@/lib/utils/ProcessDefinitionUtils";
 import {ProcessDefinition} from "@/lib/model/definition/ProcessDefinition";
 import DefinitionsTableRow from "@/components/definition/table/DefinitionsTableRow";
-import EmptyState from "@/components/state/EmptyState";
+import EmptyState from "@/components/EmptyState";
 
 interface DefinitionsTableProps {
     data: PageableData<ProcessDefinition> | null;

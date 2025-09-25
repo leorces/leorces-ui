@@ -1,19 +1,9 @@
 import React, {useState} from "react";
-import {
-    Box,
-    Collapse,
-    IconButton,
-    Link,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow,
-    Typography
-} from "@mui/material";
+import {Box, Collapse, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography} from "@mui/material";
 import {KeyboardArrowDown, KeyboardArrowUp} from "@mui/icons-material";
 import {GroupedDefinition} from "@/lib/utils/ProcessDefinitionUtils";
 import format from "@/lib/utils/DateFormatUtils";
+import AppLink from "@/components/AppLink";
 
 interface DefinitionsTableRowProps {
     group: GroupedDefinition;
@@ -27,7 +17,7 @@ export default function DefinitionsTableRow({group}: DefinitionsTableRowProps) {
         return (
             <>
                 <TableCell>
-                    <Link href={`/definitions/${data.id}`} underline="hover">{data.id}</Link>
+                    <AppLink href={`/definitions/${data.id}`}>{data.id}</AppLink>
                 </TableCell>
                 <TableCell>{data.name}</TableCell>
                 <TableCell>{data.key}</TableCell>
