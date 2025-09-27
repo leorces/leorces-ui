@@ -29,3 +29,21 @@ export async function fetchDefinitions(
         throw err;
     }
 }
+
+export async function fetchDefinition(
+    definitionId: string,
+): Promise<ProcessDefinition> {
+    try {
+        const res = await fetch(`${API_URL}/api/v1/definitions/${definitionId}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        });
+
+        return (await res.json()) as ProcessDefinition;
+    } catch (err) {
+        console.error("fetchDefinition error:", err);
+        throw err;
+    }
+}

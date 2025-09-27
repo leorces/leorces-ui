@@ -15,6 +15,7 @@ export async function fetchProcesses(
         if (params.sort) query.append("sort", params.sort);
         if (params.order) query.append("order", params.order);
         if (params.filter) query.append("filter", params.filter);
+        if (params.state) query.append("state", params.state);
 
         const res = await fetch(`${API_URL}/api/v1/processes?${query.toString()}`, {
             method: "GET",

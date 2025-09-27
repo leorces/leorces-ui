@@ -1,41 +1,74 @@
 import * as React from 'react';
-import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow} from '@mui/material';
+import {
+    LinearProgress,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TablePagination,
+    TableRow
+} from '@mui/material';
 import format from "@/lib/utils/DateFormatUtils";
 import {PageableData} from "@/lib/model/pagination/PageableData";
+import {Pageable} from "@/lib/model/pagination/Pageable";
 import {Process} from "@/lib/model/runtime/Process";
 import StateBadge from "@/components/StateBadge";
-import EmptyState from "@/components/EmptyState";
 import AppLink from "@/components/AppLink";
+import ProcessTableToolbar from "@/components/process/table/ProcessTableToolbar";
 
 interface ProcessesTableProps {
     data: PageableData<Process> | null;
     loading: boolean;
-    onPageChange: (page: number, rowsPerPage: number) => void;
+    onSearchParamsChange: (pageable: Pageable) => void;
 }
 
-export default function ProcessesTable({data, loading, onPageChange}: ProcessesTableProps) {
+export default function ProcessesTable({data, loading, onSearchParamsChange}: ProcessesTableProps) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [searchTerm, setSearchTerm] = React.useState('');
+    const [selectedState, setSelectedState] = React.useState('All');
+
+    const getPageable = (page: number, limit: number, filter: string, state: string): Pageable => ({
+        page,
+        limit,
+        filter: filter || undefined,
+        state: state !== 'All' ? state : undefined
+    });
 
     const handleChangePage = (_: unknown, newPage: number) => {
         setPage(newPage);
-        onPageChange(newPage, rowsPerPage);
+        onSearchParamsChange(getPageable(newPage, rowsPerPage, searchTerm, selectedState));
     };
 
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newRowsPerPage = +event.target.value;
-        setRowsPerPage(newRowsPerPage);
+        const newLimit = +event.target.value;
+        setRowsPerPage(newLimit);
         setPage(0);
-        onPageChange(0, newRowsPerPage);
+        onSearchParamsChange(getPageable(0, newLimit, searchTerm, selectedState));
     };
 
-    if (loading || !data?.data?.length) {
-        return <EmptyState loading={loading}/>;
-    }
+    const handleStateChange = React.useCallback((value: string) => {
+        setSelectedState(value);
+        setPage(0);
+        onSearchParamsChange(getPageable(0, rowsPerPage, searchTerm, value));
+    }, [rowsPerPage, searchTerm, onSearchParamsChange]);
+
+    const handleSearchChange = React.useCallback((value: string) => {
+        setSearchTerm(value);
+        setPage(0);
+        onSearchParamsChange(getPageable(0, rowsPerPage, value, selectedState));
+    }, [rowsPerPage, selectedState, onSearchParamsChange]);
 
     return (
         <Paper sx={{width: '100%', overflow: 'hidden'}}>
             <TableContainer sx={{maxHeight: '70vh'}}>
+                {loading && <LinearProgress/>}
+                <ProcessTableToolbar
+                    onStateChange={handleStateChange}
+                    onSearchChange={handleSearchChange}
+                />
                 <Table stickyHeader aria-label="processes table">
                     <TableHead>
                         <TableRow>
@@ -48,12 +81,10 @@ export default function ProcessesTable({data, loading, onPageChange}: ProcessesT
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {data.data.map((process) => (
+                        {data?.data?.map((process) => (
                             <TableRow key={process.id}>
                                 <TableCell>
-                                    <AppLink href={`/processes/${process.id}`}>
-                                        {process.id}
-                                    </AppLink>
+                                    <AppLink href={`/processes/${process.id}`}>{process.id}</AppLink>
                                 </TableCell>
                                 <TableCell>
                                     <AppLink href={`/definitions/${process.definition.id}`}>
@@ -72,7 +103,7 @@ export default function ProcessesTable({data, loading, onPageChange}: ProcessesT
             <TablePagination
                 rowsPerPageOptions={[10, 25, 100]}
                 component="div"
-                count={data.total}
+                count={data?.total ?? 0}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}

@@ -1,0 +1,4 @@
+/*BPMN SCHEMA*/
+.djs-element.selected-element > .djs-visual > *:first-child {
+    stroke: oklch(60.6% 0.25 292.717) !important;
+}

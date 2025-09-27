@@ -4,4 +4,5 @@ export interface Pageable {
     sort?: string;
     order?: "asc" | "desc";
     filter?: string;
+    state?: string;
 }

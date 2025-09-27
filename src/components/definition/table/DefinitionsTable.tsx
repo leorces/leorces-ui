@@ -1,45 +1,67 @@
 import * as React from "react";
-import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow,} from "@mui/material";
+import {
+    LinearProgress,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TablePagination,
+    TableRow,
+} from "@mui/material";
 import {PageableData} from "@/lib/model/pagination/PageableData";
+import {Pageable} from "@/lib/model/pagination/Pageable";
 import {groupDefinitionsByKey, GroupedDefinition} from "@/lib/utils/ProcessDefinitionUtils";
 import {ProcessDefinition} from "@/lib/model/definition/ProcessDefinition";
 import DefinitionsTableRow from "@/components/definition/table/DefinitionsTableRow";
-import EmptyState from "@/components/EmptyState";
+import DefinitionsTableToolbar from "@/components/definition/table/DefinitionsTableToolbar";
 
 interface DefinitionsTableProps {
     data: PageableData<ProcessDefinition> | null;
     loading: boolean;
-    onPageChange: (page: number, rowsPerPage: number) => void;
+    onSearchParamsChange: (pageable: Pageable) => void;
 }
 
-export default function DefinitionsTable({data, loading, onPageChange}: DefinitionsTableProps) {
+export default function DefinitionsTable({data, loading, onSearchParamsChange}: DefinitionsTableProps) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [searchTerm, setSearchTerm] = React.useState('');
 
     const groupedData: GroupedDefinition[] = React.useMemo(
         () => (data?.data ? groupDefinitionsByKey(data.data) : []),
         [data]
     );
 
+    const getPageable = (page: number, limit: number, filter: string): Pageable => ({
+        page,
+        limit,
+        filter: filter || undefined
+    });
+
     const handleChangePage = (_: unknown, newPage: number) => {
         setPage(newPage);
-        onPageChange(newPage, rowsPerPage);
+        onSearchParamsChange(getPageable(newPage, rowsPerPage, searchTerm));
     };
 
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newRowsPerPage = +event.target.value;
-        setRowsPerPage(newRowsPerPage);
+        const newLimit = +event.target.value;
+        setRowsPerPage(newLimit);
         setPage(0);
-        onPageChange(0, newRowsPerPage);
+        onSearchParamsChange(getPageable(0, newLimit, searchTerm));
     };
 
-    if (loading || !data?.data?.length) {
-        return <EmptyState loading={loading}/>;
-    }
+    const handleSearchChange = React.useCallback((value: string) => {
+        setSearchTerm(value);
+        setPage(0);
+        onSearchParamsChange(getPageable(0, rowsPerPage, value));
+    }, [rowsPerPage, onSearchParamsChange]);
 
     return (
         <Paper sx={{width: "100%", overflow: "hidden"}}>
             <TableContainer sx={{maxHeight: "70vh"}}>
+                {loading && <LinearProgress/>}
+                <DefinitionsTableToolbar onSearchChange={handleSearchChange}/>
                 <Table stickyHeader>
                     <TableHead>
                         <TableRow>

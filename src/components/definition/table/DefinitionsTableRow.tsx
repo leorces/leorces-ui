@@ -44,7 +44,7 @@ export default function DefinitionsTableRow({group}: DefinitionsTableRowProps) {
                             <Typography variant="h6" gutterBottom>
                                 Previous Versions
                             </Typography>
-                            <Table size="small" sx={{"& .MuiTableRow-root:last-child td": {borderBottom: 0}}}>
+                            <Table size="small">
                                 <TableHead>
                                     <TableRow>
                                         <TableCell>ID</TableCell>

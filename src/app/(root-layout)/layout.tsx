@@ -11,7 +11,7 @@ export default ({
     <>
         <CssBaseline/>
         <AppHeader/>
-        <Box component="main" sx={{p: 3}}>
+        <Box component="main">
             <Toolbar/>
             {children}
         </Box>

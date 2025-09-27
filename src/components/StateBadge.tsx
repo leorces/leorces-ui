@@ -32,6 +32,6 @@ function getColor(state: ActivityState | ProcessState): "default" | "primary" | 
 
 export default function StateBadge({state}: StateBadgeProps) {
     return (
-        <Chip label={state} color={getColor(state)} size="small" variant="outlined"/>
+        <Chip label={state.toLowerCase()} color={getColor(state)} size="small" variant="outlined"/>
     );
 }
