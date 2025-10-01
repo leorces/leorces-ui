@@ -2,19 +2,21 @@ import {useEffect, useRef} from 'react';
 
 export function useBpmnElementClick(
     viewerRef: React.RefObject<any>,
-    onElementClick: (element: any) => void
+    onElementClick?: (element: any) => void
 ) {
     const selectedElementIdRef = useRef<string | null>(null);
 
     useEffect(() => {
         const viewer = viewerRef.current;
-        if (!viewer || !onElementClick) return;
+        if (!viewer) return;
 
         const eventBus = viewer.get('eventBus');
         const canvas = viewer.get('canvas');
         if (!eventBus || !canvas) return;
 
-        const updateSelection = (element: any) => {
+        const handler = (event: any) => {
+            const element = event.element;
+
             if (selectedElementIdRef.current) {
                 canvas.removeMarker(selectedElementIdRef.current, 'selected-element');
             }
@@ -25,11 +27,8 @@ export function useBpmnElementClick(
             } else {
                 selectedElementIdRef.current = null;
             }
-        };
 
-        const handler = (event: any) => {
-            onElementClick(event.element);
-            updateSelection(event.element);
+            onElementClick?.(element.businessObject ?? element);
         };
 
         eventBus.on('element.click', handler);
@@ -42,4 +41,3 @@ export function useBpmnElementClick(
         };
     }, [viewerRef, onElementClick]);
 }
-

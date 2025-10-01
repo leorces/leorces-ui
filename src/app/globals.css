@@ -1,4 +1,50 @@
-/*BPMN SCHEMA*/
+:root {
+    --color-default: #000000de; /* MUI default */
+    --color-primary: #1976d2; /* MUI primary */
+    --color-secondary: #9c27b0; /* MUI secondary */
+    --color-success: #2e7d32; /* MUI success */
+    --color-warning: #ed6c02; /* MUI warning */
+    --color-danger: #d32f2f; /* MUI error/danger */
+    --color-violet: oklch(60.6% 0.25 292.717);
+}
+
+/* BPMN SCHEMA */
+.bjs-powered-by {
+    display: none !important;
+}
+
+svg[data-element-id^="Collaboration_"]:focus {
+    outline: none !important;
+}
+
+.djs-element.status-completed > .djs-visual > *:first-child {
+    stroke: var(--color-success) !important;
+}
+
+.djs-element.status-active > .djs-visual > *:first-child {
+    stroke: var(--color-primary) !important;
+}
+
+.djs-element.status-scheduled > .djs-visual > *:first-child {
+    stroke: var(--color-secondary) !important;
+}
+
+.djs-element.status-incident > .djs-visual > *:first-child {
+    stroke: var(--color-danger) !important;
+}
+
+.djs-element.status-failed > .djs-visual > *:first-child {
+    stroke: var(--color-danger) !important;
+}
+
+.djs-element.status-canceled > .djs-visual > *:first-child {
+    stroke: var(--color-default) !important;
+}
+
+.djs-element.status-terminated > .djs-visual > *:first-child {
+    stroke: var(--color-warning) !important;
+}
+
 .djs-element.selected-element > .djs-visual > *:first-child {
-    stroke: oklch(60.6% 0.25 292.717) !important;
+    stroke: var(--color-violet) !important;
 }

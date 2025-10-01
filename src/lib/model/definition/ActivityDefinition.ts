@@ -8,10 +8,11 @@ export interface ActivityDefinition {
     errorCode?: string;
     messageReference?: string;
     calledElement?: string;
+    calledElementVersion?: number;
     type: ActivityType;
     incoming: string[];
     outgoing: string[];
-    condition?: Record<string, string[]> | Record<string, string> | String;
+    condition?: Record<string, string[] | string> | string;
     inputs: Record<string, any>;
     outputs: Record<string, any>;
 }

@@ -1,6 +1,7 @@
 import {Pageable} from "@/lib/model/pagination/Pageable";
 import {PageableData} from "@/lib/model/pagination/PageableData";
 import {Process} from "@/lib/model/runtime/Process";
+import {ProcessExecution} from "@/lib/model/runtime/ProcessExecution";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
@@ -27,6 +28,24 @@ export async function fetchProcesses(
         return (await res.json()) as PageableData<Process>;
     } catch (err) {
         console.error("fetchDefinitions error:", err);
+        throw err;
+    }
+}
+
+export async function fetchProcess(
+    processId: string,
+): Promise<ProcessExecution> {
+    try {
+        const res = await fetch(`${API_URL}/api/v1/processes/${processId}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        });
+
+        return (await res.json()) as ProcessExecution;
+    } catch (err) {
+        console.error("fetchProcess error:", err);
         throw err;
     }
 }
