@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import {useParams} from "react-router";
 import {useEffect, useRef, useState} from "react";
 import type {ProcessExecution} from "../../lib/model/runtime/ProcessExecution.ts";
 import {fetchProcess} from "../../lib/rest/ProcessClient.ts";
@@ -7,7 +7,7 @@ import BpmnViewer from "../../components/bpmn/BpmnViewer.tsx";
 import Box from "@mui/material/Box";
 import {Alert, CircularProgress} from "@mui/material";
 
-export default function ProcessDetailsPage(){
+export default function ProcessDetailsPage() {
     const {processId} = useParams();
     const [process, setProcess] = useState<ProcessExecution | null>(null);
     const [loading, setLoading] = useState<boolean>(true);

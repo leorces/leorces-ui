@@ -14,7 +14,7 @@ export function useBpmnViewer(containerRef: RefObject<HTMLDivElement>, schema: s
 
         const viewer = new Viewer({
             container: containerRef.current,
-            mouse: { bindTo: document },
+            mouse: {bindTo: document},
             modules: [
                 ...(Viewer.prototype as any)._modules,
                 ZoomScrollModule,

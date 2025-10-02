@@ -1,7 +1,7 @@
-import type { ProcessExecution } from "../../../../lib/model/runtime/ProcessExecution";
-import type { Variable } from "../../../../lib/model/runtime/Variable";
-import {useEffect, useRef, useState} from "react";
-import { convertStringToValue } from "../../../../lib/utils/VariableUtils";
+import type {ProcessExecution} from "../../../../lib/model/runtime/ProcessExecution";
+import type {Variable} from "../../../../lib/model/runtime/Variable";
+import React, {useEffect, useRef, useState} from "react";
+import {convertStringToValue} from "../../../../lib/utils/VariableUtils";
 import {setLocalVariables} from "../../../../lib/rest/RuntimeClient.ts";
 import {Alert, Snackbar, Stack, TextField} from "@mui/material";
 import {isTerminal} from "../../../../lib/utils/StateUtils.ts";
@@ -9,7 +9,6 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import VariableProperty from "./VariableProperty.tsx";
-import React from "react";
 
 interface VariablesPropertyProps {
     process: ProcessExecution;

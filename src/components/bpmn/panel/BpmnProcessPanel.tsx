@@ -1,4 +1,4 @@
-import type { BpmnElementSelection } from "../model/BpmnElementSelection";
+import type {BpmnElementSelection} from "../model/BpmnElementSelection";
 import {isTerminal} from "../../../lib/utils/StateUtils.ts";
 import {Accordion, AccordionDetails, AccordionSummary, Box, Card, Divider, Stack, Typography} from "@mui/material";
 import StateBadge from "../../StateBadge.tsx";
@@ -85,7 +85,8 @@ export default function BpmnProcessPanel({selection}: BpmnProcessPanelProps) {
                             <Typography component="span">Variables</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <VariablesProperty process={process!} executionId={process!.id} variables={process!.variables}/>
+                            <VariablesProperty process={process!} executionId={process!.id}
+                                               variables={process!.variables}/>
                         </AccordionDetails>
                     </Accordion>
                 }

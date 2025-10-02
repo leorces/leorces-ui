@@ -1,7 +1,7 @@
-import { formatActivityType } from "../../../lib/utils/ActivityTypeFormatUtils";
-import { isTerminal } from "../../../lib/utils/StateUtils";
+import {formatActivityType} from "../../../lib/utils/ActivityTypeFormatUtils";
+import {isTerminal} from "../../../lib/utils/StateUtils";
 import StateBadge from "../../StateBadge";
-import type { BpmnElementSelection } from "../model/BpmnElementSelection";
+import type {BpmnElementSelection} from "../model/BpmnElementSelection";
 import ActivityActions from "./actions/ActivityActions";
 import BaseProperty from "./property/BaseProperty";
 import {
@@ -83,7 +83,8 @@ export default function BpmnElementPanel({selection}: BpmnProcessPanelProps) {
                         <BaseProperty property="ID" value={activityDefinition?.id}/>
                         {activityDefinition?.name && <BaseProperty property="Name" value={activityDefinition.name}/>}
                         {activityDefinition?.topic && <BaseProperty property="Topic" value={activityDefinition.topic}/>}
-                        {activityDefinition?.messageReference && <BaseProperty property="Message" value={activityDefinition.messageReference}/>}
+                        {activityDefinition?.messageReference &&
+                            <BaseProperty property="Message" value={activityDefinition.messageReference}/>}
                         {activityDefinition?.calledElement &&
                             <>
                                 <BaseProperty property="Called element" value={activityDefinition.calledElement}/>
@@ -197,7 +198,8 @@ export default function BpmnElementPanel({selection}: BpmnProcessPanelProps) {
                             <Typography component="span">Variables</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <VariablesProperty process={process!} executionId={activity!.id} variables={activity!.variables}/>
+                            <VariablesProperty process={process!} executionId={activity!.id}
+                                               variables={activity!.variables}/>
                         </AccordionDetails>
                     </Accordion>
                 }
