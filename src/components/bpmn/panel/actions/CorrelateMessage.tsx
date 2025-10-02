@@ -1,7 +1,8 @@
-import {ProcessExecution} from "@/lib/model/runtime/ProcessExecution";
-import {Alert, Autocomplete, Button, Snackbar, Stack, TextField} from "@mui/material";
+import type {ProcessExecution} from "../../../../lib/model/runtime/ProcessExecution.ts";
 import {useState} from "react";
-import {correlateMessage} from "@/lib/rest/RuntimeClient";
+import {correlateMessage} from "../../../../lib/rest/RuntimeClient.ts";
+import Button from "@mui/material/Button";
+import {Alert, Autocomplete, Snackbar, Stack, TextField} from "@mui/material";
 
 interface CorrelateMessageProps {
     process: ProcessExecution;

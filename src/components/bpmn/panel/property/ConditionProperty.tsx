@@ -1,5 +1,6 @@
-import React from "react";
-import {Box, Stack, Typography} from "@mui/material";
+import Box from "@mui/material/Box";
+import {Stack} from "@mui/material";
+import Typography from "@mui/material/Typography";
 
 interface ConditionPropertyProps {
     condition?: Record<string, string[] | string> | string;

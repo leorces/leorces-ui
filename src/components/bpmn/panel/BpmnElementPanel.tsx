@@ -1,19 +1,26 @@
-import {Accordion, AccordionDetails, AccordionSummary, Box, Card, Chip, Stack} from "@mui/material";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import React from "react";
-import BaseProperty from "@/components/bpmn/panel/property/BaseProperty";
-import {BpmnElementSelection} from "@/components/bpmn/model/BpmnElementSelection";
-import {formatActivityType} from "@/lib/utils/ActivityTypeFormatUtils";
-import ConditionProperty from "@/components/bpmn/panel/property/ConditionProperty";
-import ErrorProperty from "@/components/bpmn/panel/property/ErrorProperty";
-import VariablesProperty from "@/components/bpmn/panel/property/VariablesProperty";
-import TimeProperty from "@/components/bpmn/panel/property/TimeProperty";
-import StateBadge from "@/components/StateBadge";
-import LinkProperty from "@/components/bpmn/panel/property/LinkProperty";
-import ActivityActions from "@/components/bpmn/panel/actions/ActivityActions";
-import {isTerminal} from "@/lib/utils/StateUtils";
+import { formatActivityType } from "../../../lib/utils/ActivityTypeFormatUtils";
+import { isTerminal } from "../../../lib/utils/StateUtils";
+import StateBadge from "../../StateBadge";
+import type { BpmnElementSelection } from "../model/BpmnElementSelection";
+import ActivityActions from "./actions/ActivityActions";
+import BaseProperty from "./property/BaseProperty";
+import {
+    Accordion,
+    AccordionDetails,
+    AccordionSummary,
+    Box,
+    Card,
+    Chip,
+    Divider,
+    Stack,
+    Typography
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ErrorProperty from "./property/ErrorProperty.tsx";
+import ConditionProperty from "./property/ConditionProperty.tsx";
+import LinkProperty from "./property/LinkProperty.tsx";
+import TimeProperty from "./property/TimeProperty.tsx";
+import VariablesProperty from "./property/VariablesProperty.tsx";
 
 interface BpmnProcessPanelProps {
     selection: BpmnElementSelection

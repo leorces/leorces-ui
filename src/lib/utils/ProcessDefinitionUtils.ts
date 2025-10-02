@@ -1,4 +1,4 @@
-import {ProcessDefinition} from "@/lib/model/definition/ProcessDefinition";
+import type {ProcessDefinition} from "../model/definition/ProcessDefinition.ts";
 
 export interface GroupedDefinition {
     latest: ProcessDefinition;

@@ -1,12 +1,11 @@
-"use client";
-import { useCallback, useEffect, useState } from "react";
-import { PageableData } from "@/lib/model/pagination/PageableData";
-import { Pageable } from "@/lib/model/pagination/Pageable";
-import { fetchProcesses } from "@/lib/rest/ProcessClient";
-import { Process } from "@/lib/model/runtime/Process";
+import {useCallback, useEffect, useState} from "react";
 import Typography from "@mui/material/Typography";
-import { Container } from "@mui/material";
-import ProcessesTable from "@/components/process/table/ProcessesTable";
+import {Container} from "@mui/material";
+import type {PageableData} from "../../lib/model/pagination/PageableData.ts";
+import type {Process} from "../../lib/model/runtime/Process.ts";
+import {fetchProcesses} from "../../lib/rest/ProcessClient.ts";
+import type {Pageable} from "../../lib/model/pagination/Pageable.ts";
+import ProcessesTable from "./components/table/ProcessesTable.tsx";
 
 export default function ProcessesPage() {
     const [data, setData] = useState<PageableData<Process> | null>(null);
@@ -19,7 +18,7 @@ export default function ProcessesPage() {
     const loadData = useCallback(async () => {
         setLoading(true);
         try {
-            const params: Record<string, any> = { page, limit: rowsPerPage };
+            const params: Record<string, any> = {page, limit: rowsPerPage};
             if (filter) params.filter = filter;
             if (state && state !== 'All') params.state = state.toUpperCase();
 
@@ -38,7 +37,7 @@ export default function ProcessesPage() {
     }, [loadData]);
 
     const handleSearchParamsChange = useCallback((pageable: Pageable) => {
-        const { page: newPage = 0, limit = 10, filter: newFilter, state: newState } = pageable;
+        const {page: newPage = 0, limit = 10, filter: newFilter, state: newState} = pageable;
 
         setPage(newPage);
         setRowsPerPage(limit);

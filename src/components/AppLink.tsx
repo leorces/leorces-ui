@@ -1,18 +1,18 @@
-import * as React from 'react';
+import React, {type ReactNode} from "react";
+import {useNavigate} from "react-router";
 import {Link as MuiLink} from '@mui/material';
-import {useRouter} from 'next/navigation';
 
 interface AppLinkProps {
     href: string;
-    children: React.ReactNode;
+    children: ReactNode;
 }
 
 export default function AppLink({href, children}: AppLinkProps) {
-    const router = useRouter();
+    const navigate = useNavigate();
 
     const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
         event.preventDefault();
-        router.push(href);
+        navigate(href);
     };
 
     return (

@@ -1,4 +1,4 @@
-export function convertStringToValue(value: string): any {
+export function convertStringToValue(value: string): string | number | boolean | object | null {
     if (!value) return null;
 
     const trimmed = value.trim();
@@ -17,6 +17,7 @@ export function convertStringToValue(value: string): any {
         try {
             return JSON.parse(trimmed);
         } catch {
+            return value
         }
     }
 

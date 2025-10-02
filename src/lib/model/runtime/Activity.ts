@@ -1,5 +1,5 @@
-import {Variable} from "@/lib/model/runtime/Variable";
-import {ActivityState} from "@/lib/model/runtime/ActivityState";
+import type {Variable} from "./Variable.ts";
+import type {ActivityState} from "./ActivityState.ts";
 
 export interface Activity {
     id: string;

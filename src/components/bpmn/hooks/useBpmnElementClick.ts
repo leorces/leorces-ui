@@ -1,7 +1,7 @@
-import {useEffect, useRef} from 'react';
+import {type RefObject, useEffect, useRef} from 'react';
 
 export function useBpmnElementClick(
-    viewerRef: React.RefObject<any>,
+    viewerRef: RefObject<any>,
     onElementClick?: (element: any) => void
 ) {
     const selectedElementIdRef = useRef<string | null>(null);

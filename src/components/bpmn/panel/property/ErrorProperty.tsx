@@ -1,5 +1,5 @@
-import {ErrorItem} from "@/lib/model/definition/ErrorItem";
-import BaseProperty from "@/components/bpmn/panel/property/BaseProperty";
+import type {ErrorItem} from "../../../../lib/model/definition/ErrorItem.ts";
+import BaseProperty from "./BaseProperty.tsx";
 
 interface ErrorPropertyProps {
     error: ErrorItem

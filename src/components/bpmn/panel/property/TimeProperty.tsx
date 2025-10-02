@@ -1,5 +1,5 @@
-import BaseProperty from "@/components/bpmn/panel/property/BaseProperty";
-import format from "@/lib/utils/DateFormatUtils";
+import BaseProperty from "./BaseProperty.tsx";
+import format from "../../../../lib/utils/DateFormatUtils.ts";
 
 interface TimePropertyProps {
     property: any

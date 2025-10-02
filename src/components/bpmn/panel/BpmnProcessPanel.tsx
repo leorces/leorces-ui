@@ -1,15 +1,12 @@
-import {Accordion, AccordionDetails, AccordionSummary, Box, Card, Stack} from "@mui/material";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import React from "react";
-import BaseProperty from "@/components/bpmn/panel/property/BaseProperty";
-import TimeProperty from "@/components/bpmn/panel/property/TimeProperty";
-import {BpmnElementSelection} from "@/components/bpmn/model/BpmnElementSelection";
-import VariablesProperty from "@/components/bpmn/panel/property/VariablesProperty";
-import StateBadge from "@/components/StateBadge";
-import CorrelateMessage from "@/components/bpmn/panel/actions/CorrelateMessage";
-import {isTerminal} from "@/lib/utils/StateUtils";
+import type { BpmnElementSelection } from "../model/BpmnElementSelection";
+import {isTerminal} from "../../../lib/utils/StateUtils.ts";
+import {Accordion, AccordionDetails, AccordionSummary, Box, Card, Divider, Stack, Typography} from "@mui/material";
+import StateBadge from "../../StateBadge.tsx";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import BaseProperty from "./property/BaseProperty.tsx";
+import TimeProperty from "./property/TimeProperty.tsx";
+import CorrelateMessage from "./actions/CorrelateMessage.tsx";
+import VariablesProperty from "./property/VariablesProperty.tsx";
 
 interface BpmnProcessPanelProps {
     selection: BpmnElementSelection

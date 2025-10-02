@@ -1,6 +1,7 @@
-import {Variable} from "@/lib/model/runtime/Variable";
-import {Box, TextField} from "@mui/material";
-import React, {useEffect, useState} from "react";
+import type {Variable} from "../../../../lib/model/runtime/Variable.ts";
+import {useEffect, useState} from "react";
+import Box from "@mui/material/Box";
+import {TextField} from "@mui/material";
 
 interface VariablePropertyProps {
     canChange: boolean;

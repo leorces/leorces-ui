@@ -1,4 +1,6 @@
-export default function format(value: any) {
+export default function format(
+    value?: string | number | Date | [number, number, number, number, number, number] | null
+) {
     if (!value) return "";
     if (Array.isArray(value)) {
         const [year, month, day, hour, minute, second] = value;

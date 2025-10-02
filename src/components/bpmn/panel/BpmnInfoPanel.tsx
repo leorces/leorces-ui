@@ -1,7 +1,6 @@
-import React from "react";
-import BpmnProcessPanel from "@/components/bpmn/panel/BpmnProcessPanel";
-import {BpmnElementSelection} from "@/components/bpmn/model/BpmnElementSelection";
-import BpmnElementPanel from "@/components/bpmn/panel/BpmnElementPanel";
+import type {BpmnElementSelection} from "../model/BpmnElementSelection.ts";
+import BpmnProcessPanel from "./BpmnProcessPanel.tsx";
+import BpmnElementPanel from "./BpmnElementPanel.tsx";
 
 interface BpmnInfoPanelProps {
     selection: BpmnElementSelection

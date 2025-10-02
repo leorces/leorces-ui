@@ -1,6 +1,6 @@
-import {Box, Typography} from "@mui/material";
-import React from "react";
-import AppLink from "@/components/AppLink";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import AppLink from "../../../AppLink.tsx";
 
 interface BasePropertyProps {
     property: string;

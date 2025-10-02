@@ -1,14 +1,13 @@
 import React, {useEffect} from "react";
-import {Activity} from "@/lib/model/runtime/Activity";
-import {ActivityState} from "@/lib/model/runtime/ActivityState";
+import type {Activity} from "../../../lib/model/runtime/Activity.ts";
 
-const STATUS_CLASSES: Record<ActivityState, string> = {
-    [ActivityState.SCHEDULED]: 'status-scheduled',
-    [ActivityState.ACTIVE]: 'status-active',
-    [ActivityState.COMPLETED]: 'status-completed',
-    [ActivityState.CANCELED]: 'status-canceled',
-    [ActivityState.TERMINATED]: 'status-terminated',
-    [ActivityState.FAILED]: 'status-failed',
+const STATUS_CLASSES: Record<"SCHEDULED" | "ACTIVE" | "COMPLETED" | "CANCELED" | "TERMINATED" | "FAILED", string> = {
+    SCHEDULED: 'status-scheduled',
+    ACTIVE: 'status-active',
+    COMPLETED: 'status-completed',
+    CANCELED: 'status-canceled',
+    TERMINATED: 'status-terminated',
+    FAILED: 'status-failed',
 };
 
 const ALL_STATUS_CLASSES = Object.values(STATUS_CLASSES).concat('status-incident');

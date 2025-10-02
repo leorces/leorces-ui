@@ -1,11 +1,11 @@
-import {Grid} from "@mui/material";
-import {ProcessDefinition} from "@/lib/model/definition/ProcessDefinition";
-import BpmnSchemaViewer from "@/components/bpmn/viewer/BpmnSchemaViewer";
-import BpmnInfoPanel from "@/components/bpmn/panel/BpmnInfoPanel";
-import {BpmnElementSelection} from "@/components/bpmn/model/BpmnElementSelection";
+import type {ProcessDefinition} from "../../lib/model/definition/ProcessDefinition.ts";
+import type {ProcessExecution} from "../../lib/model/runtime/ProcessExecution.ts";
 import {useState} from "react";
+import {Grid} from "@mui/material";
+import BpmnSchemaViewer from "./viewer/BpmnSchemaViewer.tsx";
 import Box from "@mui/material/Box";
-import {ProcessExecution} from "@/lib/model/runtime/ProcessExecution";
+import BpmnInfoPanel from "./panel/BpmnInfoPanel.tsx";
+import {BpmnElementSelection} from "./model/BpmnElementSelection.ts";
 
 interface BpmnViewerProps {
     definition: ProcessDefinition;

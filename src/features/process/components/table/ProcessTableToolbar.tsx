@@ -1,6 +1,6 @@
-import * as React from "react";
-import {FormControl, InputLabel, MenuItem, Select, TextField, Toolbar} from "@mui/material";
-import {SelectChangeEvent} from "@mui/material/Select";
+import {FormControl, InputLabel, MenuItem, Select, type SelectChangeEvent, TextField} from "@mui/material";
+import {type ChangeEvent, useEffect, useState} from "react";
+import Toolbar from "@mui/material/Toolbar";
 
 interface ProcessTableToolbarProps {
     onStateChange: (value: string) => void;
@@ -17,8 +17,8 @@ const states = [
 ];
 
 export default function ProcessTableToolbar({onStateChange, onSearchChange}: ProcessTableToolbarProps) {
-    const [selectedState, setSelectedState] = React.useState(states[0]);
-    const [searchValue, setSearchValue] = React.useState("");
+    const [selectedState, setSelectedState] = useState(states[0]);
+    const [searchValue, setSearchValue] = useState("");
 
     const handleStateChange = (event: SelectChangeEvent) => {
         const value = event.target.value;
@@ -26,11 +26,11 @@ export default function ProcessTableToolbar({onStateChange, onSearchChange}: Pro
         onStateChange(value);
     };
 
-    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleSearchChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setSearchValue(event.target.value);
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         const handler = setTimeout(() => {
             onSearchChange(searchValue);
         }, 500);

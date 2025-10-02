@@ -1,14 +1,13 @@
-"use client"
-import BpmnViewer from "@/components/bpmn/BpmnViewer";
-import Box from "@mui/material/Box";
-import {useParams} from "next/navigation";
+import {useParams} from "react-router";
 import {useEffect, useState} from "react";
-import {ProcessDefinition} from "@/lib/model/definition/ProcessDefinition";
-import {fetchDefinition} from "@/lib/rest/DefinitionClient";
+import type {ProcessDefinition} from "../../lib/model/definition/ProcessDefinition";
+import {fetchDefinition} from "../../lib/rest/DefinitionClient.ts";
+import Box from "@mui/material/Box";
 import {Alert, CircularProgress} from "@mui/material";
+import BpmnViewer from "../../components/bpmn/BpmnViewer.tsx";
 
-export default () => {
-    const {definitionId} = useParams()
+export default function DefinitionDetailsPage() {
+    const {definitionId} = useParams<{ definitionId: string }>();
     const [definition, setDefinition] = useState<ProcessDefinition | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -18,7 +17,7 @@ export default () => {
             try {
                 const processDefinition = await fetchDefinition(definitionId as string);
                 setDefinition(processDefinition);
-            } catch (err) {
+            } catch {
                 setError(`Failed to load definition: ${definitionId}`);
             } finally {
                 setLoading(false);
@@ -58,3 +57,4 @@ export default () => {
         </Box>
     )
 }
+

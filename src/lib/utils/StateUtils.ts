@@ -1,12 +1,9 @@
-import {ActivityState} from "@/lib/model/runtime/ActivityState";
-import {ProcessState} from "@/lib/model/runtime/ProcessState";
+import type {ActivityState} from "../model/runtime/ActivityState.ts";
+import type {ProcessState} from "../model/runtime/ProcessState.ts";
 
-export function isTerminal(state: ActivityState | ProcessState | undefined) {
+export function isTerminal(state: ActivityState | ProcessState | undefined): boolean {
     if (!state) return false;
-    return state === ActivityState.COMPLETED
-        || state === ProcessState.COMPLETED
-        || state === ActivityState.CANCELED
-        || state === ProcessState.CANCELED
-        || state === ActivityState.TERMINATED
-        || state === ProcessState.TERMINATED;
+    return state === "COMPLETED"
+        || state === "CANCELED"
+        || state === "TERMINATED";
 }

@@ -1,4 +1,8 @@
-import * as React from "react";
+import type {PageableData} from "../../../lib/model/pagination/PageableData.ts";
+import type {ProcessDefinition} from "../../../lib/model/definition/ProcessDefinition.ts";
+import type {Pageable} from "../../../lib/model/pagination/Pageable.ts";
+import {groupDefinitionsByKey, type GroupedDefinition} from "../../../lib/utils/ProcessDefinitionUtils.ts";
+import {useCallback, useMemo, useState} from "react";
 import {
     LinearProgress,
     Paper,
@@ -8,14 +12,10 @@ import {
     TableContainer,
     TableHead,
     TablePagination,
-    TableRow,
+    TableRow
 } from "@mui/material";
-import {PageableData} from "@/lib/model/pagination/PageableData";
-import {Pageable} from "@/lib/model/pagination/Pageable";
-import {groupDefinitionsByKey, GroupedDefinition} from "@/lib/utils/ProcessDefinitionUtils";
-import {ProcessDefinition} from "@/lib/model/definition/ProcessDefinition";
-import DefinitionsTableRow from "@/components/definition/table/DefinitionsTableRow";
-import DefinitionsTableToolbar from "@/components/definition/table/DefinitionsTableToolbar";
+import DefinitionsTableToolbar from "./DefinitionsTableToolbar.tsx";
+import DefinitionsTableRow from "./DefinitionsTableRow.tsx";
 
 interface DefinitionsTableProps {
     data: PageableData<ProcessDefinition> | null;
@@ -24,11 +24,11 @@ interface DefinitionsTableProps {
 }
 
 export default function DefinitionsTable({data, loading, onSearchParamsChange}: DefinitionsTableProps) {
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [searchTerm, setSearchTerm] = React.useState('');
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [searchTerm, setSearchTerm] = useState('');
 
-    const groupedData: GroupedDefinition[] = React.useMemo(
+    const groupedData: GroupedDefinition[] = useMemo(
         () => (data?.data ? groupDefinitionsByKey(data.data) : []),
         [data]
     );
@@ -51,7 +51,7 @@ export default function DefinitionsTable({data, loading, onSearchParamsChange}: 
         onSearchParamsChange(getPageable(0, newLimit, searchTerm));
     };
 
-    const handleSearchChange = React.useCallback((value: string) => {
+    const handleSearchChange = useCallback((value: string) => {
         setSearchTerm(value);
         setPage(0);
         onSearchParamsChange(getPageable(0, rowsPerPage, value));

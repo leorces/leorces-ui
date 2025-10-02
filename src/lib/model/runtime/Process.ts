@@ -1,6 +1,6 @@
-import {Variable} from "@/lib/model/runtime/Variable";
-import {ProcessState} from "@/lib/model/runtime/ProcessState";
-import {ProcessDefinition} from "@/lib/model/definition/ProcessDefinition";
+import type {Variable} from "./Variable.ts";
+import type {ProcessState} from "./ProcessState.ts";
+import type {ProcessDefinition} from "../definition/ProcessDefinition.ts";
 
 export interface Process {
     id: string;

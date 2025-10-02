@@ -1,6 +1,6 @@
-import {ActivityDefinition} from "@/lib/model/definition/ActivityDefinition";
-import {ErrorItem} from "@/lib/model/definition/ErrorItem";
-import {ProcessDefinitionMetadata} from "@/lib/model/definition/ProcessDefinitionMetadata";
+import type {ActivityDefinition} from "./ActivityDefinition.ts";
+import type {ErrorItem} from "./ErrorItem.ts";
+import type {ProcessDefinitionMetadata} from "./ProcessDefinitionMetadata.ts";
 
 export interface ProcessDefinition {
     id: string;

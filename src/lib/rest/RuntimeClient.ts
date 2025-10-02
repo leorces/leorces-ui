@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 // ====== VARIABLES ======
 
@@ -10,7 +10,7 @@ export async function setVariables(
         `${API_URL}/api/v1/runtime/${executionId}/variables`,
         {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: {"Content-Type": "application/json"},
             body: JSON.stringify(variables),
         }
     );
@@ -28,7 +28,7 @@ export async function setLocalVariables(
         `${API_URL}/api/v1/runtime/${executionId}/variables/local`,
         {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: {"Content-Type": "application/json"},
             body: JSON.stringify(variables),
         }
     );
@@ -52,7 +52,7 @@ export async function correlateMessage(
 ): Promise<void> {
     const res = await fetch(`${API_URL}/api/v1/runtime/correlate`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify(req),
     });
 

@@ -1,9 +1,9 @@
-import {Pageable} from "@/lib/model/pagination/Pageable";
-import {PageableData} from "@/lib/model/pagination/PageableData";
-import {Process} from "@/lib/model/runtime/Process";
-import {ProcessExecution} from "@/lib/model/runtime/ProcessExecution";
+import type {Pageable} from "../model/pagination/Pageable.ts";
+import type {PageableData} from "../model/pagination/PageableData.ts";
+import type {Process} from "../model/runtime/Process.ts";
+import type {ProcessExecution} from "../model/runtime/ProcessExecution.ts";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 export async function fetchProcesses(
     params: Pageable = {}

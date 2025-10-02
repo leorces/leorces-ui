@@ -1,4 +1,4 @@
-import {ActivityType} from "@/lib/model/definition/ActivityType";
+import type {ActivityType} from "./ActivityType.ts";
 
 export interface ActivityDefinition {
     id: string;
@@ -13,6 +13,6 @@ export interface ActivityDefinition {
     incoming: string[];
     outgoing: string[];
     condition?: Record<string, string[] | string> | string;
-    inputs: Record<string, any>;
-    outputs: Record<string, any>;
+    inputs: Record<string, never>;
+    outputs: Record<string, never>;
 }

@@ -1,14 +1,13 @@
-"use client"
-import BpmnViewer from "@/components/bpmn/BpmnViewer";
-import Box from "@mui/material/Box";
-import {useParams} from "next/navigation";
+import { useParams } from "react-router";
 import {useEffect, useRef, useState} from "react";
+import type {ProcessExecution} from "../../lib/model/runtime/ProcessExecution.ts";
+import {fetchProcess} from "../../lib/rest/ProcessClient.ts";
+import {ProcessState} from "../../lib/model/runtime/ProcessState.ts";
+import BpmnViewer from "../../components/bpmn/BpmnViewer.tsx";
+import Box from "@mui/material/Box";
 import {Alert, CircularProgress} from "@mui/material";
-import {fetchProcess} from "@/lib/rest/ProcessClient";
-import {ProcessExecution} from "@/lib/model/runtime/ProcessExecution";
-import {ProcessState} from "@/lib/model/runtime/ProcessState";
 
-export default () => {
+export default function ProcessDetailsPage(){
     const {processId} = useParams();
     const [process, setProcess] = useState<ProcessExecution | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
@@ -19,7 +18,7 @@ export default () => {
         try {
             const fetchedProcess = await fetchProcess(processId as string);
             setProcess(fetchedProcess);
-        } catch (err) {
+        } catch {
             setError(`Failed to load process: ${processId}`);
         } finally {
             setLoading(false);

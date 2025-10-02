@@ -1,8 +1,8 @@
-import {ProcessDefinition} from "@/lib/model/definition/ProcessDefinition";
-import {ActivityDefinition} from "@/lib/model/definition/ActivityDefinition";
-import {ErrorItem} from "@/lib/model/definition/ErrorItem";
-import {ProcessExecution} from "@/lib/model/runtime/ProcessExecution";
-import {Activity} from "@/lib/model/runtime/Activity";
+import type {ProcessDefinition} from "../../../lib/model/definition/ProcessDefinition.ts";
+import type {ProcessExecution} from "../../../lib/model/runtime/ProcessExecution.ts";
+import type {ActivityDefinition} from "../../../lib/model/definition/ActivityDefinition.ts";
+import type {Activity} from "../../../lib/model/runtime/Activity.ts";
+import type {ErrorItem} from "../../../lib/model/definition/ErrorItem.ts";
 
 export class BpmnElementSelection {
     processDefinition: ProcessDefinition;

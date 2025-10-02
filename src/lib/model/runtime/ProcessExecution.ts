@@ -1,7 +1,7 @@
-import {Variable} from "@/lib/model/runtime/Variable";
-import {ProcessState} from "@/lib/model/runtime/ProcessState";
-import {ProcessDefinition} from "@/lib/model/definition/ProcessDefinition";
-import {Activity} from "@/lib/model/runtime/Activity";
+import type {Variable} from "./Variable.ts";
+import type {Activity} from "./Activity.ts";
+import type {ProcessState} from "./ProcessState.ts";
+import type {ProcessDefinition} from "../definition/ProcessDefinition.ts";
 
 export interface ProcessExecution {
     id: string;

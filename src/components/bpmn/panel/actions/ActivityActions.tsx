@@ -1,10 +1,10 @@
-import {Box, Button} from "@mui/material";
-import React from "react";
-import {Activity} from "@/lib/model/runtime/Activity";
-import {ProcessExecution} from "@/lib/model/runtime/ProcessExecution";
-import {completeActivity, retryActivity, runActivity, terminateActivity} from "@/lib/rest/ActivityClient";
-import {ActivityState} from "@/lib/model/runtime/ActivityState";
-import {isTerminal} from "@/lib/utils/StateUtils";
+import type {Activity} from "../../../../lib/model/runtime/Activity.ts";
+import type {ProcessExecution} from "../../../../lib/model/runtime/ProcessExecution.ts";
+import {isTerminal} from "../../../../lib/utils/StateUtils.ts";
+import {completeActivity, retryActivity, runActivity, terminateActivity} from "../../../../lib/rest/ActivityClient.ts";
+import {ActivityState} from "../../../../lib/model/runtime/ActivityState.ts";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 
 interface ActivityActionsProps {
     activityDefinitionId: string;

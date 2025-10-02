@@ -1,12 +1,11 @@
-"use client";
-import { useCallback, useEffect, useState } from "react";
-import { PageableData } from "@/lib/model/pagination/PageableData";
-import { Pageable } from "@/lib/model/pagination/Pageable";
-import { fetchDefinitions } from "@/lib/rest/DefinitionClient";
-import { ProcessDefinition } from "@/lib/model/definition/ProcessDefinition";
+import {useCallback, useEffect, useState} from "react";
+import type {PageableData} from "../../lib/model/pagination/PageableData.ts";
+import type {ProcessDefinition} from "../../lib/model/definition/ProcessDefinition.ts";
+import {fetchDefinitions} from "../../lib/rest/DefinitionClient.ts";
+import type {Pageable} from "../../lib/model/pagination/Pageable.ts";
+import {Container} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { Container } from "@mui/material";
-import DefinitionsTable from "@/components/definition/table/DefinitionsTable";
+import DefinitionsTable from "./table/DefinitionsTable.tsx";
 
 export default function DefinitionsPage() {
     const [data, setData] = useState<PageableData<ProcessDefinition> | null>(null);
@@ -18,12 +17,12 @@ export default function DefinitionsPage() {
     const loadData = useCallback(async () => {
         setLoading(true);
         try {
-            const params: Record<string, any> = { page, limit: rowsPerPage };
+            const params: Pageable = {page, limit: rowsPerPage};
             if (filter) params.filter = filter;
 
             const result = await fetchDefinitions(params);
             setData(result);
-        } catch (error) {
+        } catch {
             setData(null);
         } finally {
             setLoading(false);
@@ -35,7 +34,7 @@ export default function DefinitionsPage() {
     }, [loadData]);
 
     const handleSearchParamsChange = useCallback((pageable: Pageable) => {
-        const { page: newPage = 0, limit = 10, filter: newFilter } = pageable;
+        const {page: newPage = 0, limit = 10, filter: newFilter} = pageable;
 
         setPage(newPage);
         setRowsPerPage(limit);

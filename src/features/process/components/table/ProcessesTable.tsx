@@ -1,4 +1,7 @@
-import * as React from 'react';
+import type {PageableData} from "../../../../lib/model/pagination/PageableData.ts";
+import type {Process} from "../../../../lib/model/runtime/Process.ts";
+import type {Pageable} from "../../../../lib/model/pagination/Pageable.ts";
+import {useCallback, useState} from "react";
 import {
     LinearProgress,
     Paper,
@@ -9,14 +12,11 @@ import {
     TableHead,
     TablePagination,
     TableRow
-} from '@mui/material';
-import format from "@/lib/utils/DateFormatUtils";
-import {PageableData} from "@/lib/model/pagination/PageableData";
-import {Pageable} from "@/lib/model/pagination/Pageable";
-import {Process} from "@/lib/model/runtime/Process";
-import StateBadge from "@/components/StateBadge";
-import AppLink from "@/components/AppLink";
-import ProcessTableToolbar from "@/components/process/table/ProcessTableToolbar";
+} from "@mui/material";
+import ProcessTableToolbar from "./ProcessTableToolbar.tsx";
+import format from "../../../../lib/utils/DateFormatUtils.ts";
+import AppLink from "../../../../components/AppLink.tsx";
+import StateBadge from "../../../../components/StateBadge.tsx";
 
 interface ProcessesTableProps {
     data: PageableData<Process> | null;
@@ -25,10 +25,10 @@ interface ProcessesTableProps {
 }
 
 export default function ProcessesTable({data, loading, onSearchParamsChange}: ProcessesTableProps) {
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [searchTerm, setSearchTerm] = React.useState('');
-    const [selectedState, setSelectedState] = React.useState('All');
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [selectedState, setSelectedState] = useState('All');
 
     const getPageable = (page: number, limit: number, filter: string, state: string): Pageable => ({
         page,
@@ -49,13 +49,13 @@ export default function ProcessesTable({data, loading, onSearchParamsChange}: Pr
         onSearchParamsChange(getPageable(0, newLimit, searchTerm, selectedState));
     };
 
-    const handleStateChange = React.useCallback((value: string) => {
+    const handleStateChange = useCallback((value: string) => {
         setSelectedState(value);
         setPage(0);
         onSearchParamsChange(getPageable(0, rowsPerPage, searchTerm, value));
     }, [rowsPerPage, searchTerm, onSearchParamsChange]);
 
-    const handleSearchChange = React.useCallback((value: string) => {
+    const handleSearchChange = useCallback((value: string) => {
         setSearchTerm(value);
         setPage(0);
         onSearchParamsChange(getPageable(0, rowsPerPage, value, selectedState));
