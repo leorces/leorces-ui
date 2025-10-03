@@ -1,33 +1,30 @@
-import {Chip} from "@mui/material";
-import type {ActivityState} from "../lib/model/runtime/ActivityState.ts";
-import type {ProcessState} from "../lib/model/runtime/ProcessState.ts";
+import {Chip} from '@mui/material'
+import type {ActivityState} from '../lib/model/runtime/ActivityState.ts'
+import type {ProcessState} from '../lib/model/runtime/ProcessState.ts'
 
 interface StateBadgeProps {
-    state: ActivityState | ProcessState
+    state: ActivityState | ProcessState;
 }
 
-function getColor(state: ActivityState | ProcessState) {
-    switch (state) {
-        case "SCHEDULED":
-            return "secondary";
-        case "ACTIVE":
-            return "primary";
-        case "COMPLETED":
-            return "success";
-        case "CANCELED":
-            return "default";
-        case "TERMINATED":
-            return "warning";
-        case "FAILED":
-        case "INCIDENT":
-            return "error";
-        default:
-            return "default";
-    }
+const stateColors: Record<ActivityState | ProcessState, 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'error'> = {
+    SCHEDULED: 'secondary',
+    ACTIVE: 'primary',
+    COMPLETED: 'success',
+    CANCELED: 'default',
+    TERMINATED: 'warning',
+    FAILED: 'error',
+    INCIDENT: 'error'
 }
 
 export default function StateBadge({state}: StateBadgeProps) {
+    const color = stateColors[state] ?? 'default'
+
     return (
-        <Chip label={state.toLowerCase()} color={getColor(state)} size="small" variant="outlined"/>
-    );
+        <Chip
+            label={state.toLocaleLowerCase()}
+            color={color}
+            size="small"
+            variant="outlined"
+        />
+    )
 }

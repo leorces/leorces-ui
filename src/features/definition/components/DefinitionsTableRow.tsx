@@ -1,19 +1,19 @@
-import React, {useState} from "react";
-import type {GroupedDefinition} from "../../../lib/utils/ProcessDefinitionUtils";
-import {Collapse, IconButton, Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
-import AppLink from "../../../components/AppLink";
-import {KeyboardArrowDown, KeyboardArrowUp} from "@mui/icons-material";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import format from "../../../lib/utils/DateFormatUtils.ts";
-import type {ProcessDefinition} from "../../../lib/model/definition/ProcessDefinition.ts";
+import React, {useState} from 'react'
+import type {GroupedDefinition} from '../../../lib/utils/ProcessDefinitionUtils.ts'
+import {Collapse, IconButton, Table, TableBody, TableCell, TableHead, TableRow} from '@mui/material'
+import AppLink from '../../../components/AppLink.tsx'
+import {KeyboardArrowDown, KeyboardArrowUp} from '@mui/icons-material'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import format from '../../../lib/utils/DateFormatUtils.ts'
+import type {ProcessDefinition} from '../../../lib/model/definition/ProcessDefinition.ts'
 
 interface DefinitionsTableRowProps {
     group: GroupedDefinition;
 }
 
 export default function DefinitionsTableRow({group}: DefinitionsTableRowProps) {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false)
 
     const renderRow = (data: ProcessDefinition) => (
         <>
@@ -23,9 +23,9 @@ export default function DefinitionsTableRow({group}: DefinitionsTableRowProps) {
             <TableCell>{data.name}</TableCell>
             <TableCell>{data.key}</TableCell>
             <TableCell>{data.version}</TableCell>
-            <TableCell>{data.createdAt ? format(data.createdAt) : "-"}</TableCell>
+            <TableCell>{data.createdAt ? format(data.createdAt) : '-'}</TableCell>
         </>
-    );
+    )
 
     return (
         <React.Fragment>
@@ -68,5 +68,5 @@ export default function DefinitionsTableRow({group}: DefinitionsTableRowProps) {
                 </TableCell>
             </TableRow>
         </React.Fragment>
-    );
+    )
 }

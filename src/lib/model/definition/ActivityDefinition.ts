@@ -1,4 +1,4 @@
-import type {ActivityType} from "./ActivityType.ts";
+import type {ActivityType} from './ActivityType.ts'
 
 export interface ActivityDefinition {
     id: string;

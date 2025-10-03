@@ -1,8 +1,8 @@
-import AppHeader from "./AppHeader.tsx";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import {CssBaseline} from "@mui/material";
-import {Outlet} from "react-router";
+import AppHeader from './AppHeader.tsx'
+import Box from '@mui/material/Box'
+import Toolbar from '@mui/material/Toolbar'
+import {CssBaseline} from '@mui/material'
+import {Outlet} from 'react-router'
 
 export default function Layout() {
     return (
@@ -10,7 +10,7 @@ export default function Layout() {
             <CssBaseline/>
             <AppHeader/>
             <Box component="main">
-                <Toolbar/>
+                <Toolbar variant="dense"/>
                 <Outlet/>
             </Box>
         </>

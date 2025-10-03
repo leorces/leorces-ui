@@ -1,10 +1,12 @@
-import type {Activity} from "../../../../lib/model/runtime/Activity.ts";
-import type {ProcessExecution} from "../../../../lib/model/runtime/ProcessExecution.ts";
-import {isTerminal} from "../../../../lib/utils/StateUtils.ts";
-import {completeActivity, retryActivity, runActivity, terminateActivity} from "../../../../lib/rest/ActivityClient.ts";
-import {ActivityState} from "../../../../lib/model/runtime/ActivityState.ts";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
+import type {Activity} from '../../../../lib/model/runtime/Activity.ts'
+import type {ProcessExecution} from '../../../../lib/model/runtime/ProcessExecution.ts'
+import {isActive, isTerminal} from '../../../../lib/utils/StateUtils.ts'
+import {completeActivity, retryActivity, runActivity, terminateActivity} from '../../../../lib/rest/ActivityClient.ts'
+import {ActivityState} from '../../../../lib/model/runtime/ActivityState.ts'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import {useState} from 'react'
+import {Alert, Snackbar} from '@mui/material'
 
 interface ActivityActionsProps {
     activityDefinitionId: string;
@@ -13,93 +15,123 @@ interface ActivityActionsProps {
 }
 
 export default function ActivityActions({activityDefinitionId, activity, process}: ActivityActionsProps) {
+    const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: 'success' | 'error' }>({
+        open: false,
+        message: '',
+        severity: 'success'
+    })
+
+    const showSnackbar = (message: string, severity: 'success' | 'error') => {
+        setSnackbar({open: true, message, severity})
+    }
+
+    const handleCloseSnackbar = () => {
+        setSnackbar(prev => ({...prev, open: false}))
+    }
 
     const shouldShowActions = () =>
         process !== undefined &&
         !isTerminal(activity?.state) &&
-        !isTerminal(process?.state);
+        !isTerminal(process?.state)
 
     const run = async () => {
         try {
-            await runActivity(activityDefinitionId, process!.id);
-        } catch (err) {
-            console.error("Failed to run activity:", err);
+            await runActivity(activityDefinitionId, process!.id)
+            showSnackbar('Activity started successfully!', 'success')
+        } catch {
+            showSnackbar('Failed to start activity.', 'error')
         }
-    };
+    }
 
     const complete = async () => {
-        if (!activity) return;
+        if (!activity) return
         try {
-            await completeActivity(activity.id);
-        } catch (err) {
-            console.error("Failed to complete activity:", err);
+            await completeActivity(activity.id)
+            showSnackbar('Activity completed successfully!', 'success')
+        } catch {
+            showSnackbar('Failed to complete activity.', 'error')
         }
-    };
+    }
 
     const retry = async () => {
-        if (!activity) return;
+        if (!activity) return
         try {
-            await retryActivity(activity.id);
-        } catch (err) {
-            console.error("Failed to retry activity:", err);
+            await retryActivity(activity.id)
+            showSnackbar('Activity retried successfully!', 'success')
+        } catch {
+            showSnackbar('Failed to retry activity.', 'error')
         }
-    };
+    }
 
     const terminate = async () => {
-        if (!activity) return;
+        if (!activity) return
         try {
-            await terminateActivity(activity.id);
-        } catch (err) {
-            console.error("Failed to terminate activity:", err);
+            await terminateActivity(activity.id)
+            showSnackbar('Activity terminated successfully!', 'success')
+        } catch {
+            showSnackbar('Failed to terminate activity.', 'error')
         }
-    };
+    }
 
     if (!shouldShowActions()) {
         return <></>
     }
 
     return (
-        <Box sx={{pt: 1, display: 'flex', gap: 1}}>
-            {(activity?.state === ActivityState.ACTIVE || activity?.state === ActivityState.SCHEDULED) && (
-                <>
+        <>
+            <Box sx={{pt: 1, display: 'flex', gap: 1}}>
+                {(isActive(activity?.state)) && (
+                    <>
+                        <Button
+                            color="success"
+                            variant="outlined"
+                            size="small"
+                            onClick={complete}
+                        >
+                            Complete
+                        </Button>
+                        <Button
+                            color="warning"
+                            variant="outlined"
+                            size="small"
+                            onClick={terminate}
+                        >
+                            Terminate
+                        </Button>
+                    </>
+                )}
+                {!activity && (
                     <Button
-                        color="success"
+                        color="primary"
                         variant="outlined"
                         size="small"
-                        onClick={complete}
+                        onClick={run}
                     >
-                        Complete
+                        Run
                     </Button>
+                )}
+                {activity && activity.state === ActivityState.FAILED && (
                     <Button
-                        color="warning"
+                        color="error"
                         variant="outlined"
                         size="small"
-                        onClick={terminate}
+                        onClick={retry}
                     >
-                        Terminate
+                        Retry
                     </Button>
-                </>
-            )}
-            {!activity && (
-                <Button
-                    color="primary"
-                    variant="outlined"
-                    size="small"
-                    onClick={run}
-                >
-                    Run
-                </Button>
-            )}
-            {activity && activity.state === ActivityState.FAILED && (
-                <Button
-                    color="error"
-                    variant="outlined"
-                    size="small"
-                    onClick={retry}
-                >
-                    Retry
-                </Button>
-            )}
-        </Box>
-    );
+                )}
+            </Box>
+
+            <Snackbar
+                open={snackbar.open}
+                autoHideDuration={3000}
+                onClose={handleCloseSnackbar}
+                anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
+            >
+                <Alert onClose={handleCloseSnackbar} severity={snackbar.severity} sx={{width: '100%'}}>
+                    {snackbar.message}
+                </Alert>
+            </Snackbar>
+        </>
+    )
 }

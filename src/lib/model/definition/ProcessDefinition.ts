@@ -1,6 +1,6 @@
-import type {ActivityDefinition} from "./ActivityDefinition.ts";
-import type {ErrorItem} from "./ErrorItem.ts";
-import type {ProcessDefinitionMetadata} from "./ProcessDefinitionMetadata.ts";
+import type {ActivityDefinition} from './ActivityDefinition.ts'
+import type {ErrorItem} from './ErrorItem.ts'
+import type {ProcessDefinitionMetadata} from './ProcessDefinitionMetadata.ts'
 
 export interface ProcessDefinition {
     id: string;

@@ -1,9 +1,9 @@
-import {Box} from "@mui/material";
-import Typography from "@mui/material/Typography";
+import {Box} from '@mui/material'
+import Typography from '@mui/material/Typography'
 
 interface BasePropertyProps {
-    property: any
-    value: any
+    property: string
+    value: string | number | boolean | null | undefined
 }
 
 export default function BaseProperty({property, value}: BasePropertyProps) {
@@ -11,7 +11,7 @@ export default function BaseProperty({property, value}: BasePropertyProps) {
         <Typography variant="body1">
             <Box component="span" fontWeight={500}>
                 {property}:
-            </Box>{" "}
+            </Box>{' '}
             {value}
         </Typography>
     )

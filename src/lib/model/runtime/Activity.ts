@@ -1,5 +1,5 @@
-import type {Variable} from "./Variable.ts";
-import type {ActivityState} from "./ActivityState.ts";
+import type {Variable} from './Variable.ts'
+import type {ActivityState} from './ActivityState.ts'
 
 export interface Activity {
     id: string;

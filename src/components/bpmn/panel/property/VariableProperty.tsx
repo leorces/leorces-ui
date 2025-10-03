@@ -1,7 +1,7 @@
-import type {Variable} from "../../../../lib/model/runtime/Variable.ts";
-import {useEffect, useState} from "react";
-import Box from "@mui/material/Box";
-import {TextField} from "@mui/material";
+import type {Variable} from '../../../../lib/model/runtime/Variable.ts'
+import {useEffect, useState} from 'react'
+import Box from '@mui/material/Box'
+import {TextField} from '@mui/material'
 
 interface VariablePropertyProps {
     canChange: boolean;
@@ -10,21 +10,26 @@ interface VariablePropertyProps {
 }
 
 export default function VariableProperty({canChange, variable, onChange}: VariablePropertyProps) {
-    const [value, setValue] = useState(variable.varValue);
+    const [value, setValue] = useState<string>(() => formatValue(variable.varValue))
+
+    function formatValue(val: string): string {
+        try {
+            const parsed = JSON.parse(val)
+            return JSON.stringify(parsed, null, 2)
+        } catch {
+            return val
+        }
+    }
 
     useEffect(() => {
-        try {
-            const parsed = JSON.parse(variable.varValue);
-            setValue(JSON.stringify(parsed, null, 2));
-        } catch {
-            setValue(variable.varValue);
-        }
-    }, [variable.varValue]);
+        setValue(formatValue(variable.varValue))
+    }, [variable.varValue])
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setValue(e.target.value);
-        onChange?.(e.target.value);
-    };
+        const newValue = e.target.value
+        setValue(newValue)
+        onChange?.(newValue)
+    }
 
     return (
         <Box sx={{mb: 1}}>
@@ -39,16 +44,14 @@ export default function VariableProperty({canChange, variable, onChange}: Variab
                 multiline
                 sx={{
                     fontFamily: 'monospace',
-                    "& .MuiInputBase-input.Mui-disabled": {
-                        WebkitTextFillColor: "#000000",
-                    },
+                    '& .MuiInputBase-input.Mui-disabled': {
+                        WebkitTextFillColor: '#000000'
+                    }
                 }}
                 slotProps={{
-                    inputLabel: {
-                        shrink: true,
-                    },
+                    inputLabel: {shrink: true}
                 }}
             />
         </Box>
-    );
+    )
 }

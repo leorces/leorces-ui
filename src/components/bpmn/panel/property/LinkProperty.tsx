@@ -1,10 +1,10 @@
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import AppLink from "../../../AppLink.tsx";
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
+import AppLink from '../../../AppLink.tsx'
 
 interface BasePropertyProps {
     property: string;
-    value: any;
+    value: string | number | boolean | null | undefined
     link?: string;
 }
 
@@ -13,7 +13,7 @@ export default function LinkProperty({property, value, link}: BasePropertyProps)
         <Typography variant="body1">
             <Box component="span" fontWeight={500}>
                 {property}:
-            </Box>{" "}
+            </Box>{' '}
             {link ? (
                 <AppLink href={link}>
                     {value}

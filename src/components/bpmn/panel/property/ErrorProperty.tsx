@@ -1,5 +1,5 @@
-import type {ErrorItem} from "../../../../lib/model/definition/ErrorItem.ts";
-import BaseProperty from "./BaseProperty.tsx";
+import type {ErrorItem} from '../../../../lib/model/definition/ErrorItem.ts'
+import BaseProperty from './BaseProperty.tsx'
 
 interface ErrorPropertyProps {
     error: ErrorItem

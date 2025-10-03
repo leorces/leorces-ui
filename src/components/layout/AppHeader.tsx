@@ -1,36 +1,36 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import MenuIcon from '@mui/icons-material/Menu';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import {Link as RouterLink} from 'react-router-dom';
+import * as React from 'react'
+import AppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
+import Divider from '@mui/material/Divider'
+import Drawer from '@mui/material/Drawer'
+import IconButton from '@mui/material/IconButton'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
+import MenuIcon from '@mui/icons-material/Menu'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
+import {Link as RouterLink} from 'react-router-dom'
 
 interface Props {
     window?: () => Window;
 }
 
-const drawerWidth = 240;
+const drawerWidth = 240
 const navItems = [
     {label: 'Processes', href: '/'},
-    {label: 'Definitions', href: '/definitions'},
-];
+    {label: 'Definitions', href: '/definitions'}
+]
 
 export default function AppHeader(props: Props) {
-    const {window} = props;
-    const [mobileOpen, setMobileOpen] = React.useState(false);
+    const {window} = props
+    const [mobileOpen, setMobileOpen] = React.useState(false)
 
     const handleDrawerToggle = () => {
-        setMobileOpen((prev) => !prev);
-    };
+        setMobileOpen((prev) => !prev)
+    }
 
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{textAlign: 'center'}}>
@@ -52,15 +52,15 @@ export default function AppHeader(props: Props) {
                 ))}
             </List>
         </Box>
-    );
+    )
 
     const container =
-        window !== undefined ? () => window().document.body : undefined;
+        window !== undefined ? () => window().document.body : undefined
 
     return (
         <>
             <AppBar component="nav">
-                <Toolbar>
+                <Toolbar variant="dense">
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
@@ -100,12 +100,12 @@ export default function AppHeader(props: Props) {
                     ModalProps={{keepMounted: true}}
                     sx={{
                         display: {xs: 'block', sm: 'none'},
-                        '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
+                        '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth}
                     }}
                 >
                     {drawer}
                 </Drawer>
             </nav>
         </>
-    );
+    )
 }

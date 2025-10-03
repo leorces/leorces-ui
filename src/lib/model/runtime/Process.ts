@@ -1,6 +1,6 @@
-import type {Variable} from "./Variable.ts";
-import type {ProcessState} from "./ProcessState.ts";
-import type {ProcessDefinition} from "../definition/ProcessDefinition.ts";
+import type {Variable} from './Variable.ts'
+import type {ProcessState} from './ProcessState.ts'
+import type {ProcessDefinition} from '../definition/ProcessDefinition.ts'
 
 export interface Process {
     id: string;

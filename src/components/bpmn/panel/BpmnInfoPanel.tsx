@@ -1,6 +1,6 @@
-import type {BpmnElementSelection} from "../model/BpmnElementSelection.ts";
-import BpmnProcessPanel from "./BpmnProcessPanel.tsx";
-import BpmnElementPanel from "./BpmnElementPanel.tsx";
+import type {BpmnElementSelection} from '../model/BpmnElementSelection.ts'
+import BpmnProcessPanel from './BpmnProcessPanel.tsx'
+import BpmnElementPanel from './BpmnElementPanel.tsx'
 
 interface BpmnInfoPanelProps {
     selection: BpmnElementSelection

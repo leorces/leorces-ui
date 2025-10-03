@@ -1,13 +1,13 @@
-import BaseProperty from "./BaseProperty.tsx";
-import format from "../../../../lib/utils/DateFormatUtils.ts";
+import BaseProperty from './BaseProperty.tsx'
+import format from '../../../../lib/utils/DateFormatUtils.ts'
 
 interface TimePropertyProps {
-    property: any
-    value: any
+    property: string
+    value: string | number | Date | [number, number, number, number, number, number] | null | undefined
 }
 
 export default function TimeProperty({property, value}: TimePropertyProps) {
     return (
-        <BaseProperty property={property} value={value ? format(value) : "-"}/>
+        <BaseProperty property={property} value={value ? format(value) : '-'}/>
     )
 }
