@@ -37,10 +37,6 @@ svg[data-element-id^="Collaboration_"]:focus {
     stroke: var(--color-danger) !important;
 }
 
-.djs-element.status-canceled > .djs-visual > *:first-child {
-    stroke: var(--color-default) !important;
-}
-
 .djs-element.status-terminated > .djs-visual > *:first-child {
     stroke: var(--color-warning) !important;
 }

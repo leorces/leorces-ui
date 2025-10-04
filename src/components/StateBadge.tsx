@@ -6,11 +6,10 @@ interface StateBadgeProps {
     state: ActivityState | ProcessState;
 }
 
-const stateColors: Record<ActivityState | ProcessState, 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'error'> = {
+const stateColors: Record<ActivityState | ProcessState, 'primary' | 'secondary' | 'success' | 'warning' | 'error'> = {
     SCHEDULED: 'secondary',
     ACTIVE: 'primary',
     COMPLETED: 'success',
-    CANCELED: 'default',
     TERMINATED: 'warning',
     FAILED: 'error',
     INCIDENT: 'error'

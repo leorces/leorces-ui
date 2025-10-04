@@ -7,7 +7,6 @@ const STATUS_CLASSES: Record<Activity['state'], string> = {
     SCHEDULED: 'status-scheduled',
     ACTIVE: 'status-active',
     COMPLETED: 'status-completed',
-    CANCELED: 'status-canceled',
     TERMINATED: 'status-terminated',
     FAILED: 'status-failed'
 }

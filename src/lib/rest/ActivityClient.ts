@@ -10,16 +10,6 @@ export async function runActivity(definitionId: string, processId: string): Prom
     )
 }
 
-export async function completeActivity(activityId: string): Promise<void> {
-    await fetch(
-        `${API_URL}/api/v1/activities/${activityId}/complete`,
-        {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'}
-        }
-    )
-}
-
 export async function retryActivity(activityId: string): Promise<void> {
     await fetch(
         `${API_URL}/api/v1/activities/${activityId}/retry`,

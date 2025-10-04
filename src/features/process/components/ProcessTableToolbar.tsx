@@ -11,7 +11,6 @@ const STATES = [
     'All',
     'Active',
     'Completed',
-    'Canceled',
     'Terminated',
     'Incident'
 ] as const

@@ -1,7 +1,6 @@
 export const ProcessState = {
     ACTIVE: 'ACTIVE',
     COMPLETED: 'COMPLETED',
-    CANCELED: 'CANCELED',
     TERMINATED: 'TERMINATED',
     INCIDENT: 'INCIDENT'
 } as const

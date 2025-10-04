@@ -1,7 +1,7 @@
 import type {Activity} from '../../../../lib/model/runtime/Activity.ts'
 import type {ProcessExecution} from '../../../../lib/model/runtime/ProcessExecution.ts'
 import {isActive, isTerminal} from '../../../../lib/utils/StateUtils.ts'
-import {completeActivity, retryActivity, runActivity, terminateActivity} from '../../../../lib/rest/ActivityClient.ts'
+import {retryActivity, runActivity, terminateActivity} from '../../../../lib/rest/ActivityClient.ts'
 import {ActivityState} from '../../../../lib/model/runtime/ActivityState.ts'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
@@ -43,16 +43,6 @@ export default function ActivityActions({activityDefinitionId, activity, process
         }
     }
 
-    const complete = async () => {
-        if (!activity) return
-        try {
-            await completeActivity(activity.id)
-            showSnackbar('Activity completed successfully!', 'success')
-        } catch {
-            showSnackbar('Failed to complete activity.', 'error')
-        }
-    }
-
     const retry = async () => {
         if (!activity) return
         try {
@@ -82,14 +72,6 @@ export default function ActivityActions({activityDefinitionId, activity, process
             <Box sx={{pt: 1, display: 'flex', gap: 1}}>
                 {(isActive(activity?.state)) && (
                     <>
-                        <Button
-                            color="success"
-                            variant="outlined"
-                            size="small"
-                            onClick={complete}
-                        >
-                            Complete
-                        </Button>
                         <Button
                             color="warning"
                             variant="outlined"
