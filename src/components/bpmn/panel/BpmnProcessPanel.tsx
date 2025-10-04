@@ -7,6 +7,8 @@ import TimeProperty from './property/TimeProperty.tsx'
 import CorrelateMessage from './actions/CorrelateMessage.tsx'
 import VariablesProperty from './property/VariablesProperty.tsx'
 import PropertiesAccordion from './property/PropertiesAccordion'
+import ProcessActions from './actions/ProcessActions.tsx'
+import MoveExecution from './actions/MoveExecution.tsx'
 
 interface BpmnProcessPanelProps {
     selection: BpmnElementSelection;
@@ -31,6 +33,7 @@ export default function BpmnProcessPanel({selection}: BpmnProcessPanelProps) {
                 <Typography variant="body1" sx={{color: 'text.secondary'}}>
                     {processDefinition.name || processDefinition.id}
                 </Typography>
+                <ProcessActions process={process}/>
             </Box>
 
             <Divider/>
@@ -60,11 +63,18 @@ export default function BpmnProcessPanel({selection}: BpmnProcessPanelProps) {
                 </PropertiesAccordion>
             )}
 
-            {/* MESSAGES */}
+            {/*MOVE EXECUTION*/}
+            {selection.isExecution() && !isTerminal(process!.state) && (
+                <PropertiesAccordion title="Move execution">
+                    <MoveExecution process={process!}/>
+                </PropertiesAccordion>
+            )}
+
+            {/* SEND MESSAGE */}
             {process?.definition.messages &&
                 process.definition.messages.length > 0 &&
                 !isTerminal(process.state) && (
-                    <PropertiesAccordion title="Messages">
+                    <PropertiesAccordion title="Send message">
                         <CorrelateMessage process={process}/>
                     </PropertiesAccordion>
                 )}

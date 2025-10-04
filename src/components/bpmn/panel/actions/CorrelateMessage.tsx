@@ -2,7 +2,8 @@ import type {ProcessExecution} from '../../../../lib/model/runtime/ProcessExecut
 import {useState} from 'react'
 import {correlateMessage} from '../../../../lib/rest/RuntimeClient.ts'
 import Button from '@mui/material/Button'
-import {Alert, Autocomplete, Snackbar, Stack, TextField} from '@mui/material'
+import {Autocomplete, Stack, TextField} from '@mui/material'
+import AppSnackbar from '../../../AppSnackbar.tsx'
 
 interface CorrelateMessageProps {
     process: ProcessExecution;
@@ -41,12 +42,11 @@ export default function CorrelateMessage({process}: CorrelateMessageProps) {
 
     return (
         <>
-            <Stack direction="row" spacing={1} alignItems="center">
+            <Stack spacing={1}>
                 <Autocomplete
                     size="small"
                     disablePortal
                     options={messages}
-                    sx={{width: 300}}
                     value={selectedMessage}
                     onChange={(_, newValue) => setSelectedMessage(newValue)}
                     renderInput={(params) => <TextField {...params} label="Messages"/>}
@@ -57,20 +57,16 @@ export default function CorrelateMessage({process}: CorrelateMessageProps) {
                     disabled={!selectedMessage || loading}
                     onClick={handleCorrelate}
                 >
-                    {loading ? 'Correlating...' : 'Correlate'}
+                    Correlate
                 </Button>
             </Stack>
 
-            <Snackbar
+            <AppSnackbar
                 open={snackbar.open}
-                autoHideDuration={3000}
+                message={snackbar.message}
+                severity={snackbar.severity}
                 onClose={handleCloseSnackbar}
-                anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
-            >
-                <Alert onClose={handleCloseSnackbar} severity={snackbar.severity} sx={{width: '100%'}}>
-                    {snackbar.message}
-                </Alert>
-            </Snackbar>
+            />
         </>
     )
 }

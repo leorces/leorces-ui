@@ -1,8 +1,8 @@
 export function formatActivityType(type?: string): string {
-    if (!type) return '';
+    if (!type) return ''
     return type
         .toLowerCase()
         .split('_')
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
+        .join(' ')
 }

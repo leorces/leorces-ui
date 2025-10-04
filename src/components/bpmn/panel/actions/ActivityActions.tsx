@@ -6,7 +6,7 @@ import {ActivityState} from '../../../../lib/model/runtime/ActivityState.ts'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import {useState} from 'react'
-import {Alert, Snackbar} from '@mui/material'
+import AppSnackbar from '../../../AppSnackbar.tsx'
 
 interface ActivityActionsProps {
     activityDefinitionId: string;
@@ -122,16 +122,12 @@ export default function ActivityActions({activityDefinitionId, activity, process
                 )}
             </Box>
 
-            <Snackbar
+            <AppSnackbar
                 open={snackbar.open}
-                autoHideDuration={3000}
+                message={snackbar.message}
+                severity={snackbar.severity}
                 onClose={handleCloseSnackbar}
-                anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
-            >
-                <Alert onClose={handleCloseSnackbar} severity={snackbar.severity} sx={{width: '100%'}}>
-                    {snackbar.message}
-                </Alert>
-            </Snackbar>
+            />
         </>
     )
 }

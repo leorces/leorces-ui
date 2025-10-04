@@ -3,12 +3,13 @@ import type {Variable} from '../../../../lib/model/runtime/Variable'
 import React, {useEffect, useRef, useState} from 'react'
 import {convertStringToValue} from '../../../../lib/utils/VariableUtils'
 import {setLocalVariables} from '../../../../lib/rest/RuntimeClient.ts'
-import {Alert, Snackbar, Stack, TextField} from '@mui/material'
+import {Stack, TextField} from '@mui/material'
 import {isTerminal} from '../../../../lib/utils/StateUtils.ts'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import VariableProperty from './VariableProperty.tsx'
+import AppSnackbar from '../../../AppSnackbar.tsx'
 
 interface VariablesPropertyProps {
     process: ProcessExecution;
@@ -125,6 +126,9 @@ export default function VariablesProperty({process, executionId, variables}: Var
                             value={v.key}
                             onChange={(e) => handleNewVariableChange(index, 'key', e.target.value)}
                             fullWidth
+                            slotProps={{
+                                inputLabel: {shrink: true}
+                            }}
                         />
                         <TextField
                             size="small"
@@ -133,6 +137,9 @@ export default function VariablesProperty({process, executionId, variables}: Var
                             multiline
                             onChange={(e) => handleNewVariableChange(index, 'value', e.target.value)}
                             fullWidth
+                            slotProps={{
+                                inputLabel: {shrink: true}
+                            }}
                         />
                         <Divider/>
                     </Stack>
@@ -154,16 +161,12 @@ export default function VariablesProperty({process, executionId, variables}: Var
                 )}
             </Stack>
 
-            <Snackbar
+            <AppSnackbar
                 open={snackbar.open}
-                autoHideDuration={3000}
+                message={snackbar.message}
+                severity={snackbar.severity}
                 onClose={handleCloseSnackbar}
-                anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
-            >
-                <Alert onClose={handleCloseSnackbar} severity={snackbar.severity} sx={{width: '100%'}}>
-                    {snackbar.message}
-                </Alert>
-            </Snackbar>
+            />
         </>
     )
 }

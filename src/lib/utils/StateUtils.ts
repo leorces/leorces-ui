@@ -9,5 +9,9 @@ export function isTerminal(state: ActivityState | ProcessState | undefined): boo
 }
 
 export function isActive(state: ActivityState | ProcessState | undefined): boolean {
-    return !isTerminal(state)
+    if (!state) return false
+    return state === 'ACTIVE'
+        || state === 'SCHEDULED'
+        || state === 'FAILED'
+        || state === 'INCIDENT'
 }
