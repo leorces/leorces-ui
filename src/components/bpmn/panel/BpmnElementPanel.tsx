@@ -11,6 +11,7 @@ import LinkProperty from './property/LinkProperty.tsx'
 import TimeProperty from './property/TimeProperty.tsx'
 import VariablesProperty from './property/VariablesProperty.tsx'
 import {Box, Card, Divider, Stack, Typography} from '@mui/material'
+import FailureProperty from './property/FailureProperty.tsx'
 
 interface BpmnProcessPanelProps {
     selection: BpmnElementSelection;
@@ -83,6 +84,13 @@ export default function BpmnElementPanel({selection}: BpmnProcessPanelProps) {
                     )}
                     <TimeProperty property="Started" value={activity.startedAt}/>
                     <TimeProperty property="Completed" value={activity.completedAt}/>
+                </PropertiesAccordion>
+            )}
+
+            {/*FAILURE*/}
+            {activity && activity.failure && (activity.failure.reason || activity.failure.trace) && (
+                <PropertiesAccordion title="Failure">
+                    <FailureProperty failure={activity.failure}/>
                 </PropertiesAccordion>
             )}
 
