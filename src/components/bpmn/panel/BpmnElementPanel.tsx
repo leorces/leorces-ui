@@ -82,6 +82,7 @@ export default function BpmnElementPanel({selection}: BpmnProcessPanelProps) {
                     ) : (
                         <BaseProperty property="ID" value={activity?.id}/>
                     )}
+                    {activity?.retries > 0 && <BaseProperty property="Retries" value={activity.retries}/>}
                     <TimeProperty property="Started" value={activity.startedAt}/>
                     <TimeProperty property="Completed" value={activity.completedAt}/>
                 </PropertiesAccordion>
