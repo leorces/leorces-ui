@@ -1,4 +1,5 @@
 import type {ActivityType} from './ActivityType.ts'
+import type {VariableMapping} from './VariableMapping.ts'
 
 export interface ActivityDefinition {
     id: string;
@@ -10,6 +11,8 @@ export interface ActivityDefinition {
     calledElement?: string;
     calledElementVersion?: number;
     type: ActivityType;
+    inputMappings?: VariableMapping[],
+    outputMappings?: VariableMapping[],
     incoming: string[];
     outgoing: string[];
     condition?: Record<string, string[] | string> | string;

@@ -12,6 +12,7 @@ import TimeProperty from './property/TimeProperty.tsx'
 import VariablesProperty from './property/VariablesProperty.tsx'
 import {Box, Card, Divider, Stack, Typography} from '@mui/material'
 import FailureProperty from './property/FailureProperty.tsx'
+import VariableMappingProperties from './property/VariableMappingProperties.tsx'
 
 interface BpmnProcessPanelProps {
     selection: BpmnElementSelection;
@@ -106,6 +107,20 @@ export default function BpmnElementPanel({selection}: BpmnProcessPanelProps) {
             {activityDefinition?.errorCode && (
                 <PropertiesAccordion title="Error">
                     <ErrorProperty error={error!}/>
+                </PropertiesAccordion>
+            )}
+
+            {/* INPUT MAPPINGS */}
+            {activityDefinition?.inputMappings && activityDefinition.inputMappings.length > 0 && (
+                <PropertiesAccordion title="Input mappings" count={activityDefinition.inputMappings.length}>
+                    <VariableMappingProperties mappings={activityDefinition.inputMappings}/>
+                </PropertiesAccordion>
+            )}
+
+            {/* OUTPUT MAPPINGS */}
+            {activityDefinition?.outputMappings && activityDefinition.outputMappings.length > 0 && (
+                <PropertiesAccordion title="Output mappings" count={activityDefinition.outputMappings.length}>
+                    <VariableMappingProperties mappings={activityDefinition.outputMappings}/>
                 </PropertiesAccordion>
             )}
 
