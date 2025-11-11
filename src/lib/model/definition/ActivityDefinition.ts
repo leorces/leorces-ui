@@ -7,6 +7,7 @@ export interface ActivityDefinition {
     name: string;
     topic?: string;
     errorCode?: string;
+    escalationCode?: string;
     messageReference?: string;
     calledElement?: string;
     calledElementVersion?: number;

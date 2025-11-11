@@ -66,6 +66,8 @@ export default function BpmnElementPanel({selection}: BpmnProcessPanelProps) {
                 {activityDefinition?.topic && <BaseProperty property="Topic" value={activityDefinition.topic}/>}
                 {activityDefinition?.messageReference &&
                     <BaseProperty property="Message" value={activityDefinition.messageReference}/>}
+                {activityDefinition?.escalationCode &&
+                    <BaseProperty property="Escalation code" value={activityDefinition.escalationCode}/>}
                 {activityDefinition?.calledElement && (
                     <>
                         <BaseProperty property="Called element" value={activityDefinition.calledElement}/>
