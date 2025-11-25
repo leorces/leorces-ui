@@ -1,1 +1,1 @@
-export const API_URL = import.meta.env.VITE_API_URL || `http://localhost:${window.location.port}`
+export const API_URL = import.meta.env.VITE_API_URL || `http://localhost:${window.location.port || 8080}`
