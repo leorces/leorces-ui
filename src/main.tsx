@@ -2,11 +2,24 @@ import {StrictMode} from 'react'
 import {createRoot} from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
-import {BrowserRouter} from 'react-router'
+import {BrowserRouter} from 'react-router-dom'
+
+function getBaseName(): string {
+    const path = window.location.pathname
+    const segments = path.split('/').filter(Boolean)
+
+    if (segments.length === 0) return '/'
+
+    return '/' + segments[0]
+}
+
+const basename = getBaseName()
+
+console.log('Detected basename:', basename)
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <BrowserRouter>
+        <BrowserRouter basename={basename}>
             <App/>
         </BrowserRouter>
     </StrictMode>
