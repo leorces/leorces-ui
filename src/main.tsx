@@ -15,8 +15,6 @@ function getBaseName(): string {
 
 const basename = getBaseName()
 
-console.log('Detected basename:', basename)
-
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
         <BrowserRouter basename={basename}>
