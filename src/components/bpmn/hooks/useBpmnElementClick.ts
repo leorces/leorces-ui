@@ -26,7 +26,7 @@ export function useBpmnElementClick(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const handler = (event: any) => {
             const element = event.element as BpmnElement | undefined
-            if (!element) return
+            if (!element || (element as any).type == 'bpmn:SequenceFlow') return
 
             if (selectedElementIdRef.current) {
                 canvas.removeMarker(selectedElementIdRef.current, 'selected-element')

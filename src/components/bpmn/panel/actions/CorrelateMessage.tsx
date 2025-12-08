@@ -1,8 +1,7 @@
 import type {ProcessExecution} from '../../../../lib/model/runtime/ProcessExecution.ts'
 import {useState} from 'react'
 import {correlateMessage} from '../../../../lib/rest/RuntimeClient.ts'
-import Button from '@mui/material/Button'
-import {Autocomplete, Stack, TextField} from '@mui/material'
+import {Autocomplete, Button, Stack, TextField, Typography} from '@mui/material'
 import AppSnackbar from '../../../AppSnackbar.tsx'
 
 interface CorrelateMessageProps {
@@ -42,18 +41,23 @@ export default function CorrelateMessage({process}: CorrelateMessageProps) {
 
     return (
         <>
-            <Stack spacing={1}>
+            <Stack direction="row" spacing={2} alignItems="justifyItems">
+                <Typography variant="subtitle1" fontWeight={600} sx={{minWidth: 170}}>
+                    Correlate message:
+                </Typography>
+
                 <Autocomplete
                     size="small"
                     disablePortal
+                    sx={{width: 220}}
                     options={messages}
                     value={selectedMessage}
                     onChange={(_, newValue) => setSelectedMessage(newValue)}
                     renderInput={(params) => <TextField {...params} label="Messages"/>}
                 />
+
                 <Button
                     variant="contained"
-                    color="primary"
                     disabled={!selectedMessage || loading}
                     onClick={handleCorrelate}
                 >

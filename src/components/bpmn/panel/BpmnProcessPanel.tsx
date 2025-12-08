@@ -4,11 +4,9 @@ import {Box, Card, Divider, Stack, Typography} from '@mui/material'
 import StateBadge from '../../StateBadge.tsx'
 import BaseProperty from './property/BaseProperty.tsx'
 import TimeProperty from './property/TimeProperty.tsx'
-import CorrelateMessage from './actions/CorrelateMessage.tsx'
 import VariablesProperty from './property/VariablesProperty.tsx'
 import PropertiesAccordion from './property/PropertiesAccordion'
 import ProcessActions from './actions/ProcessActions.tsx'
-import MoveExecution from './actions/MoveExecution.tsx'
 
 interface BpmnProcessPanelProps {
     selection: BpmnElementSelection;
@@ -62,22 +60,6 @@ export default function BpmnProcessPanel({selection}: BpmnProcessPanelProps) {
                     <VariablesProperty process={process!} executionId={process!.id} variables={process!.variables}/>
                 </PropertiesAccordion>
             )}
-
-            {/*MOVE EXECUTION*/}
-            {selection.isExecution() && !isTerminal(process!.state) && (
-                <PropertiesAccordion title="Move execution">
-                    <MoveExecution process={process!}/>
-                </PropertiesAccordion>
-            )}
-
-            {/* SEND MESSAGE */}
-            {process?.definition.messages &&
-                process.definition.messages.length > 0 &&
-                !isTerminal(process.state) && (
-                    <PropertiesAccordion title="Send message">
-                        <CorrelateMessage process={process}/>
-                    </PropertiesAccordion>
-                )}
         </Card>
     )
 }
