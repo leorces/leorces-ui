@@ -31,8 +31,7 @@ export default function ActivityActions({activityDefinitionId, activity, process
 
     const shouldShowActions = () =>
         process !== undefined &&
-        !isTerminal(activity?.state) &&
-        !isTerminal(process?.state)
+        !isTerminal(activity?.state)
 
     const run = async () => {
         try {

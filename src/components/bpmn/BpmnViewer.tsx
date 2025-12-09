@@ -7,7 +7,6 @@ import BpmnInfoPanel from './panel/BpmnInfoPanel.tsx'
 import {BpmnElementSelection} from './model/BpmnElementSelection.ts'
 import BpmnSchemaViewer from './viewer/BpmnSchemaViewer.tsx'
 import ProcessActionsPanel from './panel/ProcessActionsPanel.tsx'
-import {isTerminal} from '../../lib/utils/StateUtils.ts'
 
 interface BpmnViewerProps {
     definition: ProcessDefinition;
@@ -17,14 +16,11 @@ interface BpmnViewerProps {
 export default function BpmnViewer({definition, process}: BpmnViewerProps) {
     const [selectedElement, setSelectedElement] = useState<any | null>(null)
 
-    const showActions = process && !isTerminal(process.state)
-    const viewerHeight = showActions ? '75vh' : '89vh'
-
     return (
         <Grid container spacing={1} sx={{overflow: 'hidden'}}>
             <Grid size={{xs: 6, sm: 7, md: 8, lg: 9}}>
                 <Stack spacing={2}>
-                    <Box sx={{height: viewerHeight}}>
+                    <Box sx={{height: '75vh'}}>
                         <BpmnSchemaViewer
                             schema={definition.metadata.schema}
                             activities={process?.activities}

@@ -31,7 +31,7 @@ export default function BpmnElementPanel({selection}: BpmnProcessPanelProps) {
 
     const showVariables = () =>
         activity &&
-        !(activity.variables.length === 0 && (isTerminal(activity?.state) || isTerminal(process?.state)))
+        !(activity.variables.length === 0 && (isTerminal(activity?.state)))
 
     const renderKeyValue = (map: Map<string, PropertyValue>) =>
         Array.from(map.entries()).map(([key, value]) => (

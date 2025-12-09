@@ -1,7 +1,6 @@
 import {useEffect, useRef, useState} from 'react'
 import type {ProcessExecution} from '../../../lib/model/runtime/ProcessExecution.ts'
 import {fetchProcess} from '../../../lib/rest/ProcessClient.ts'
-import {isActive} from '../../../lib/utils/StateUtils.ts'
 
 export function usePollingProcess(processId?: string) {
     const [process, setProcess] = useState<ProcessExecution | null>(null)
@@ -32,14 +31,6 @@ export function usePollingProcess(processId?: string) {
     useEffect(() => {
         if (!processId) return
 
-        if (!isActive(process?.state)) {
-            if (intervalRef.current) {
-                clearInterval(intervalRef.current)
-                intervalRef.current = null
-            }
-            return
-        }
-
         if (intervalRef.current) return
 
         intervalRef.current = setInterval(loadProcess, 2000)
@@ -51,7 +42,7 @@ export function usePollingProcess(processId?: string) {
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [processId, process?.state && isActive(process.state)])
+    }, [processId])
 
     return {process, loading, error}
 }
