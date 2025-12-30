@@ -4,7 +4,6 @@ import React, {useEffect, useRef, useState} from 'react'
 import {convertStringToValue} from '../../../../lib/utils/VariableUtils'
 import {setLocalVariables} from '../../../../lib/rest/RuntimeClient.ts'
 import {Stack, TextField} from '@mui/material'
-import {isTerminal} from '../../../../lib/utils/StateUtils.ts'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
@@ -109,7 +108,7 @@ export default function VariablesProperty({process, executionId, variables}: Var
                     .map((variable, index) => (
                         <React.Fragment key={variable.varKey}>
                             <VariableProperty
-                                canChange={!isTerminal(process.state)}
+                                canChange={!process.inTerminalState && !process.suspended}
                                 variable={{...variable, varValue: values[variable.varKey]}}
                                 onChange={(val) => handleChange(variable.varKey, val)}
                             />
@@ -145,7 +144,7 @@ export default function VariablesProperty({process, executionId, variables}: Var
                     </Stack>
                 ))}
 
-                {!isTerminal(process.state) && (
+                {!process.inTerminalState && !process.suspended && (
                     <Box sx={{mt: 1, display: 'flex', gap: 1}}>
                         <Button
                             variant="contained"

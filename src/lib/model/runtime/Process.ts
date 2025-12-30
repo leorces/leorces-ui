@@ -9,6 +9,12 @@ export interface Process {
     variables: Variable[];
     state: ProcessState;
     definition: ProcessDefinition;
+    active: boolean;
+    completed: boolean;
+    terminated: boolean;
+    incident: boolean;
+    suspended: boolean;
+    inTerminalState: boolean;
     createdAt: string;
     updatedAt: string;
     startedAt?: string;

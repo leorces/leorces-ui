@@ -119,7 +119,7 @@ export default function ProcessesTable({data, loading, onSearchParamsChange}: Pr
                                     </TableCell>
                                     <TableCell>{process.businessKey}</TableCell>
                                     <TableCell>
-                                        <StateBadge state={process.state}/>
+                                        <StateBadge execution={process}/>
                                     </TableCell>
                                     <TableCell>{process.startedAt ? format(process.startedAt) : '-'}</TableCell>
                                     <TableCell>{process.completedAt ? format(process.completedAt) : '-'}</TableCell>

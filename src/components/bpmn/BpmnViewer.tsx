@@ -41,7 +41,7 @@ export default function BpmnViewer({definition, process}: BpmnViewerProps) {
                         />
                     </Box>
 
-                    {process && (
+                    {process && !process.suspended && (
                         <Box>
                             <ProcessActionsPanel process={process}/>
                         </Box>

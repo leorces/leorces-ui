@@ -1,5 +1,4 @@
 import {formatActivityType} from '../../../lib/utils/ActivityTypeFormatUtils'
-import {isTerminal} from '../../../lib/utils/StateUtils'
 import StateBadge from '../../StateBadge'
 import type {BpmnElementSelection} from '../model/BpmnElementSelection'
 import ActivityActions from './actions/ActivityActions'
@@ -31,7 +30,7 @@ export default function BpmnElementPanel({selection}: BpmnProcessPanelProps) {
 
     const showVariables = () =>
         activity &&
-        !(activity.variables.length === 0 && (isTerminal(activity?.state)))
+        !(activity.variables.length === 0 && (activity?.inTerminalState))
 
     const renderKeyValue = (map: Map<string, PropertyValue>) =>
         Array.from(map.entries()).map(([key, value]) => (
@@ -49,7 +48,7 @@ export default function BpmnElementPanel({selection}: BpmnProcessPanelProps) {
                     <Typography gutterBottom variant="h5" component="div">
                         {formatActivityType(activityDefinition?.type)}
                     </Typography>
-                    {activity?.state && <StateBadge state={activity.state}/>}
+                    {activity?.state && <StateBadge execution={activity}/>}
                 </Stack>
                 <Typography variant="body1" sx={{color: 'text.secondary'}}>
                     {activityDefinition?.name || activityDefinition?.id}

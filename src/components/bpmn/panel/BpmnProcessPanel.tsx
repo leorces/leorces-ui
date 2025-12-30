@@ -1,5 +1,4 @@
 import type {BpmnElementSelection} from '../model/BpmnElementSelection'
-import {isTerminal} from '../../../lib/utils/StateUtils.ts'
 import {Box, Card, Divider, Stack, Typography} from '@mui/material'
 import StateBadge from '../../StateBadge.tsx'
 import BaseProperty from './property/BaseProperty.tsx'
@@ -17,7 +16,7 @@ export default function BpmnProcessPanel({selection}: BpmnProcessPanelProps) {
     const process = selection.process
 
     const showVariables = () =>
-        process && !(process?.variables.length === 0 && isTerminal(process?.state))
+        process && !(process?.variables.length === 0 && process?.inTerminalState)
 
     return (
         <Card variant="outlined">
@@ -26,7 +25,7 @@ export default function BpmnProcessPanel({selection}: BpmnProcessPanelProps) {
                     <Typography gutterBottom variant="h5" component="div">
                         Process
                     </Typography>
-                    {selection.isExecution() && process?.state && <StateBadge state={process.state}/>}
+                    {selection.isExecution() && process?.state && <StateBadge execution={process}/>}
                 </Stack>
                 <Typography variant="body1" sx={{color: 'text.secondary'}}>
                     {processDefinition.name || processDefinition.id}

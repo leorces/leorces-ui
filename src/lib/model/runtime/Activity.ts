@@ -9,6 +9,13 @@ export interface Activity {
     state: ActivityState;
     retries: number;
     failure?: ActivityFailure;
+    scheduled: boolean;
+    active: boolean;
+    completed: boolean;
+    terminated: boolean;
+    failed: boolean;
+    suspended: boolean;
+    inTerminalState: boolean;
     createdAt: string;
     updatedAt: string;
     startedAt?: string;

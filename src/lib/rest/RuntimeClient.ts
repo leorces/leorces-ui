@@ -11,6 +11,26 @@ export async function terminateProcess(processId: string): Promise<void> {
     )
 }
 
+export async function suspendProcess(processId: string): Promise<void> {
+    await fetch(
+        `${API_URL}/api/v1/runtime/processes/${processId}/suspend`,
+        {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'}
+        }
+    )
+}
+
+export async function resumeProcess(processId: string): Promise<void> {
+    await fetch(
+        `${API_URL}/api/v1/runtime/processes/${processId}/resume`,
+        {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'}
+        }
+    )
+}
+
 export async function moveExecution(processId: string, activityId: string, targetDefinitionId: string): Promise<void> {
     await fetch(
         `${API_URL}/api/v1/runtime/processes/${processId}/modification`,

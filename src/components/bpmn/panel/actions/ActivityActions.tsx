@@ -1,12 +1,12 @@
 import type {Activity} from '../../../../lib/model/runtime/Activity.ts'
 import type {ProcessExecution} from '../../../../lib/model/runtime/ProcessExecution.ts'
-import {isActive, isTerminal} from '../../../../lib/utils/StateUtils.ts'
 import {retryActivity, runActivity, terminateActivity} from '../../../../lib/rest/ActivityClient.ts'
 import {ActivityState} from '../../../../lib/model/runtime/ActivityState.ts'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import {useState} from 'react'
 import AppSnackbar from '../../../AppSnackbar.tsx'
+import {isActive} from '../../../../lib/utils/StateUtils.ts'
 
 interface ActivityActionsProps {
     activityDefinitionId: string;
@@ -31,7 +31,7 @@ export default function ActivityActions({activityDefinitionId, activity, process
 
     const shouldShowActions = () =>
         process !== undefined &&
-        !isTerminal(activity?.state)
+        !activity?.inTerminalState
 
     const run = async () => {
         try {
@@ -68,40 +68,42 @@ export default function ActivityActions({activityDefinitionId, activity, process
 
     return (
         <>
-            <Box sx={{pt: 1, display: 'flex', gap: 1}}>
-                {(isActive(activity?.state)) && (
-                    <>
+            {!process?.suspended && (
+                <Box sx={{pt: 1, display: 'flex', gap: 1}}>
+                    {(isActive(activity?.state)) && (
+                        <>
+                            <Button
+                                color="warning"
+                                variant="outlined"
+                                size="small"
+                                onClick={terminate}
+                            >
+                                Terminate
+                            </Button>
+                        </>
+                    )}
+                    {!activity && (
                         <Button
-                            color="warning"
+                            color="primary"
                             variant="outlined"
                             size="small"
-                            onClick={terminate}
+                            onClick={run}
                         >
-                            Terminate
+                            Run
                         </Button>
-                    </>
-                )}
-                {!activity && (
-                    <Button
-                        color="primary"
-                        variant="outlined"
-                        size="small"
-                        onClick={run}
-                    >
-                        Run
-                    </Button>
-                )}
-                {activity && activity.state === ActivityState.FAILED && (
-                    <Button
-                        color="error"
-                        variant="outlined"
-                        size="small"
-                        onClick={retry}
-                    >
-                        Retry
-                    </Button>
-                )}
-            </Box>
+                    )}
+                    {activity && activity.state === ActivityState.FAILED && (
+                        <Button
+                            color="error"
+                            variant="outlined"
+                            size="small"
+                            onClick={retry}
+                        >
+                            Retry
+                        </Button>
+                    )}
+                </Box>
+            )}
 
             <AppSnackbar
                 open={snackbar.open}

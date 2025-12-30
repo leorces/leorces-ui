@@ -1,9 +1,8 @@
 import type {ProcessExecution} from '../../../../lib/model/runtime/ProcessExecution.ts'
-import {isActive, isTerminal} from '../../../../lib/utils/StateUtils.ts'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import {useState} from 'react'
-import {terminateProcess} from '../../../../lib/rest/RuntimeClient.ts'
+import {resumeProcess, suspendProcess, terminateProcess} from '../../../../lib/rest/RuntimeClient.ts'
 import AppSnackbar from '../../../AppSnackbar.tsx'
 
 interface ProcessActionsProps {
@@ -27,7 +26,7 @@ export default function ProcessActions({process}: ProcessActionsProps) {
 
     const shouldShowActions = () =>
         process !== undefined &&
-        !isTerminal(process?.state)
+        !process?.inTerminalState
 
 
     const terminate = async () => {
@@ -40,6 +39,26 @@ export default function ProcessActions({process}: ProcessActionsProps) {
         }
     }
 
+    const suspend = async () => {
+        if (!process) return
+        try {
+            await suspendProcess(process.id)
+            showSnackbar('Process suspended successfully!', 'success')
+        } catch {
+            showSnackbar('Failed to suspend process.', 'error')
+        }
+    }
+
+    const resume = async () => {
+        if (!process) return
+        try {
+            await resumeProcess(process.id)
+            showSnackbar('Process resume successfully!', 'success')
+        } catch {
+            showSnackbar('Failed to resume process.', 'error')
+        }
+    }
+
     if (!shouldShowActions()) {
         return <></>
     }
@@ -47,7 +66,7 @@ export default function ProcessActions({process}: ProcessActionsProps) {
     return (
         <>
             <Box sx={{pt: 1, display: 'flex', gap: 1}}>
-                {(isActive(process?.state)) && (
+                {(!process?.inTerminalState) && (
                     <>
                         <Button
                             color="warning"
@@ -58,6 +77,30 @@ export default function ProcessActions({process}: ProcessActionsProps) {
                             Terminate
                         </Button>
                     </>
+                )}
+
+                {!process?.inTerminalState && !process?.suspended && (
+                    <>
+                        <Button
+                            color="inherit"
+                            variant="outlined"
+                            size="small"
+                            onClick={suspend}
+                        >
+                            Suspend
+                        </Button>
+                    </>
+                )}
+
+                {(process?.suspended) && (
+                    <Button
+                        color="primary"
+                        variant="outlined"
+                        size="small"
+                        onClick={resume}
+                    >
+                        Resume
+                    </Button>
                 )}
             </Box>
 
