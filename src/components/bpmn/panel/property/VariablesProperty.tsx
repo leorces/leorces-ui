@@ -9,6 +9,7 @@ import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import VariableProperty from './VariableProperty.tsx'
 import AppSnackbar from '../../../AppSnackbar.tsx'
+import {ServerError} from '../../../../lib/rest/error/ServerError.ts'
 
 interface VariablesPropertyProps {
     process: ProcessExecution;
@@ -20,9 +21,15 @@ export default function VariablesProperty({process, executionId, variables}: Var
     const [values, setValues] = useState<Record<string, string>>({})
     const [newVariables, setNewVariables] = useState<{ key: string; value: string }[]>([])
     const prevVariablesRef = useRef<Variable[]>([])
-    const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: 'success' | 'error' }>({
+    const [snackbar, setSnackbar] = useState<{
+        open: boolean;
+        message: string;
+        detailedMessage?: string,
+        severity: 'success' | 'error'
+    }>({
         open: false,
         message: '',
+        detailedMessage: undefined,
         severity: 'success'
     })
 
@@ -88,7 +95,16 @@ export default function VariablesProperty({process, executionId, variables}: Var
             setSnackbar({open: true, message: 'Variables updated successfully!', severity: 'success'})
         } catch (error) {
             console.error('Failed to update variables:', error)
-            setSnackbar({open: true, message: 'Failed to update variables.', severity: 'error'})
+            if (error instanceof ServerError) {
+                setSnackbar({
+                    open: true,
+                    message: error.message,
+                    detailedMessage: error.detailedMessage,
+                    severity: 'error'
+                })
+            } else {
+                setSnackbar({open: true, message: 'Failed to update variables.', severity: 'error'})
+            }
         }
     }
 
@@ -108,7 +124,7 @@ export default function VariablesProperty({process, executionId, variables}: Var
                     .map((variable, index) => (
                         <React.Fragment key={variable.varKey}>
                             <VariableProperty
-                                canChange={!process.inTerminalState && !process.suspended}
+                                canChange={!process.inTerminalState}
                                 variable={{...variable, varValue: values[variable.varKey]}}
                                 onChange={(val) => handleChange(variable.varKey, val)}
                             />
@@ -144,7 +160,7 @@ export default function VariablesProperty({process, executionId, variables}: Var
                     </Stack>
                 ))}
 
-                {!process.inTerminalState && !process.suspended && (
+                {!process.inTerminalState && (
                     <Box sx={{mt: 1, display: 'flex', gap: 1}}>
                         <Button
                             variant="contained"
@@ -163,6 +179,7 @@ export default function VariablesProperty({process, executionId, variables}: Var
             <AppSnackbar
                 open={snackbar.open}
                 message={snackbar.message}
+                detailedMessage={snackbar.detailedMessage}
                 severity={snackbar.severity}
                 onClose={handleCloseSnackbar}
             />

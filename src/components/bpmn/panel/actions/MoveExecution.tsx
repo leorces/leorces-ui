@@ -4,6 +4,7 @@ import type {ProcessExecution} from '../../../../lib/model/runtime/ProcessExecut
 import {getActiveActivities, getNotStartedActivityDefinitionIds} from '../../../../lib/utils/ProcessExecutionUtils.ts'
 import {moveExecution} from '../../../../lib/rest/RuntimeClient.ts'
 import AppSnackbar from '../../../AppSnackbar.tsx'
+import {ServerError} from '../../../../lib/rest/error/ServerError.ts'
 
 interface MoveExecutionProps {
     process: ProcessExecution
@@ -17,9 +18,15 @@ export default function MoveExecution({process}: MoveExecutionProps) {
     const [selectedActivityDefId, setSelectedActivityDefId] = useState<string | null>(null)
     const [targetDefinitionId, setTargetDefinitionId] = useState<string | null>(null)
     const [loading, setLoading] = useState(false)
-    const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: 'success' | 'error' }>({
+    const [snackbar, setSnackbar] = useState<{
+        open: boolean;
+        message: string;
+        detailedMessage?: string,
+        severity: 'success' | 'error'
+    }>({
         open: false,
         message: '',
+        detailedMessage: undefined,
         severity: 'success'
     })
 
@@ -38,9 +45,19 @@ export default function MoveExecution({process}: MoveExecutionProps) {
             setSnackbar({open: true, message: 'Move successful!', severity: 'success'})
             setSelectedActivityDefId(null)
             setTargetDefinitionId(null)
-        } catch (err) {
-            console.error(err)
-            setSnackbar({open: true, message: 'Move failed.', severity: 'error'})
+        } catch (error) {
+            console.error(error)
+            if (error instanceof ServerError) {
+                setSnackbar({
+                    open: true,
+                    message: error.message,
+                    detailedMessage: error.detailedMessage,
+                    severity: 'error'
+                })
+            } else {
+                setSnackbar({open: true, message: 'Move execution failed.', severity: 'error'})
+            }
+
         } finally {
             setLoading(false)
         }
@@ -88,6 +105,7 @@ export default function MoveExecution({process}: MoveExecutionProps) {
             <AppSnackbar
                 open={snackbar.open}
                 message={snackbar.message}
+                detailedMessage={snackbar.detailedMessage}
                 severity={snackbar.severity}
                 onClose={handleCloseSnackbar}
             />

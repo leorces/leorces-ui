@@ -3,6 +3,7 @@ import {useState} from 'react'
 import {correlateMessage} from '../../../../lib/rest/RuntimeClient.ts'
 import {Autocomplete, Button, Stack, TextField, Typography} from '@mui/material'
 import AppSnackbar from '../../../AppSnackbar.tsx'
+import {ServerError} from '../../../../lib/rest/error/ServerError.ts'
 
 interface CorrelateMessageProps {
     process: ProcessExecution;
@@ -12,9 +13,15 @@ export default function CorrelateMessage({process}: CorrelateMessageProps) {
     const messages = process.definition.messages
     const [selectedMessage, setSelectedMessage] = useState<string | null>(null)
     const [loading, setLoading] = useState(false)
-    const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: 'success' | 'error' }>({
+    const [snackbar, setSnackbar] = useState<{
+        open: boolean;
+        message: string;
+        detailedMessage?: string,
+        severity: 'success' | 'error'
+    }>({
         open: false,
         message: '',
+        detailedMessage: undefined,
         severity: 'success'
     })
 
@@ -28,8 +35,18 @@ export default function CorrelateMessage({process}: CorrelateMessageProps) {
                 businessKey: process.businessKey
             })
             setSnackbar({open: true, message: 'Message correlated successfully!', severity: 'success'})
-        } catch {
-            setSnackbar({open: true, message: 'Failed to correlate message.', severity: 'error'})
+        } catch (error) {
+            console.error('Failed to correlate message:', error)
+            if (error instanceof ServerError) {
+                setSnackbar({
+                    open: true,
+                    message: error.message,
+                    detailedMessage: error.detailedMessage,
+                    severity: 'error'
+                })
+            } else {
+                setSnackbar({open: true, message: 'Failed to correlate message.', severity: 'error'})
+            }
         } finally {
             setLoading(false)
         }
@@ -68,6 +85,7 @@ export default function CorrelateMessage({process}: CorrelateMessageProps) {
             <AppSnackbar
                 open={snackbar.open}
                 message={snackbar.message}
+                detailedMessage={snackbar.detailedMessage}
                 severity={snackbar.severity}
                 onClose={handleCloseSnackbar}
             />

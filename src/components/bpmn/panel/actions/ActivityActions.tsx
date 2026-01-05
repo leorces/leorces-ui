@@ -68,42 +68,40 @@ export default function ActivityActions({activityDefinitionId, activity, process
 
     return (
         <>
-            {!process?.suspended && (
-                <Box sx={{pt: 1, display: 'flex', gap: 1}}>
-                    {(isActive(activity?.state)) && (
-                        <>
-                            <Button
-                                color="warning"
-                                variant="outlined"
-                                size="small"
-                                onClick={terminate}
-                            >
-                                Terminate
-                            </Button>
-                        </>
-                    )}
-                    {!activity && (
+            <Box sx={{pt: 1, display: 'flex', gap: 1}}>
+                {(isActive(activity?.state)) && (
+                    <>
                         <Button
-                            color="primary"
+                            color="warning"
                             variant="outlined"
                             size="small"
-                            onClick={run}
+                            onClick={terminate}
                         >
-                            Run
+                            Terminate
                         </Button>
-                    )}
-                    {activity && activity.state === ActivityState.FAILED && (
-                        <Button
-                            color="error"
-                            variant="outlined"
-                            size="small"
-                            onClick={retry}
-                        >
-                            Retry
-                        </Button>
-                    )}
-                </Box>
-            )}
+                    </>
+                )}
+                {!activity && (
+                    <Button
+                        color="primary"
+                        variant="outlined"
+                        size="small"
+                        onClick={run}
+                    >
+                        Run
+                    </Button>
+                )}
+                {activity && activity.state === ActivityState.FAILED && (
+                    <Button
+                        color="error"
+                        variant="outlined"
+                        size="small"
+                        onClick={retry}
+                    >
+                        Retry
+                    </Button>
+                )}
+            </Box>
 
             <AppSnackbar
                 open={snackbar.open}
