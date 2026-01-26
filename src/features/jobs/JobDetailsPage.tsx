@@ -122,7 +122,21 @@ export default function JobDetailsPage() {
                         <AccordionDetails>
                             <Typography color="error">{job.failureReason}</Typography>
                             {job.failureTrace && (
-                                <Box component="pre" sx={{mt: 1, whiteSpace: 'pre-wrap'}}>
+                                <Box
+                                    component="pre"
+                                    sx={{
+                                        mt: 1,
+                                        whiteSpace: 'pre-wrap',
+                                        wordBreak: 'break-word',
+                                        overflowX: 'auto',
+                                        maxWidth: '100%',
+                                        p: 1,
+                                        bgcolor: 'background.paper',
+                                        borderRadius: 1,
+                                        border: '1px solid',
+                                        borderColor: 'divider'
+                                    }}
+                                >
                                     {job.failureTrace}
                                 </Box>
                             )}
