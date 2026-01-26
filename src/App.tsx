@@ -8,6 +8,8 @@ import DefinitionsPage from './features/definition/DefinitionsPage.tsx'
 import DefinitionDetailsPage from './features/definition/DefinitionDetailsPage.tsx'
 import ProcessDetailsPage from './features/process/ProcessDetailsPage.tsx'
 import ProcessesPage from './features/process/ProcessesPage.tsx'
+import JobsPage from './features/jobs/JobsPage.tsx'
+import JobDetailsPage from './features/jobs/JobDetailsPage.tsx'
 
 function App() {
     return (
@@ -18,6 +20,8 @@ function App() {
                 <Route path="processes/:processId" element={<ProcessDetailsPage/>}/>
                 <Route path="definitions" element={<DefinitionsPage/>}/>
                 <Route path="definitions/:definitionId" element={<DefinitionDetailsPage/>}/>
+                <Route path="jobs" element={<JobsPage/>}/>
+                <Route path="jobs/:jobId" element={<JobDetailsPage/>}/>
             </Route>
         </Routes>
     )

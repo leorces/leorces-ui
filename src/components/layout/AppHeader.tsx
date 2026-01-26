@@ -21,7 +21,8 @@ interface Props {
 const drawerWidth = 240
 const navItems = [
     {label: 'Processes', href: '/'},
-    {label: 'Definitions', href: '/definitions'}
+    {label: 'Definitions', href: '/definitions'},
+    {label: 'Jobs', href: '/jobs'}
 ]
 
 export default function AppHeader(props: Props) {

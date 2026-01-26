@@ -2,7 +2,7 @@ import {Chip} from '@mui/material'
 import type {Activity} from '../lib/model/runtime/Activity.ts'
 import type {Process} from '../lib/model/runtime/Process.ts'
 import type {ProcessExecution} from '../lib/model/runtime/ProcessExecution.ts'
-
+import type {Job} from '../lib/model/job/Job.ts'
 
 function resolveBadgeLabel(
     state: BadgeState,
@@ -13,7 +13,7 @@ function resolveBadgeLabel(
         : state
 }
 
-type Execution = Activity | Process | ProcessExecution
+type Execution = Activity | Process | ProcessExecution | Job
 
 type BadgeState =
     | 'scheduled'
@@ -22,6 +22,8 @@ type BadgeState =
     | 'terminated'
     | 'failed'
     | 'incident'
+    | 'running'
+    | 'created'
     | 'unrecognised'
 
 function resolveBadgeState(execution: Execution): BadgeState {
@@ -33,20 +35,28 @@ function resolveBadgeState(execution: Execution): BadgeState {
         return 'incident'
     }
 
-    if (execution.active) {
+    if ('active' in execution && execution.active) {
         return 'active'
     }
 
-    if (execution.completed) {
+    if ('completed' in execution && execution.completed) {
         return 'completed'
     }
 
-    if (execution.terminated) {
+    if ('terminated' in execution && execution.terminated) {
         return 'terminated'
     }
 
     if ('scheduled' in execution && execution.scheduled) {
         return 'scheduled'
+    }
+
+    if ('created' in execution && execution.created) {
+        return 'created'
+    }
+
+    if ('running' in execution && execution.running) {
+        return 'running'
     }
 
     return 'unrecognised'
@@ -57,7 +67,9 @@ const badgeColors: Record<
     'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'default'
 > = {
     scheduled: 'secondary',
+    created: 'secondary',
     active: 'primary',
+    running: 'primary',
     completed: 'success',
     terminated: 'warning',
     failed: 'error',
@@ -74,7 +86,8 @@ export default function StateBadge({execution}: StateBadgeProps) {
     const state = resolveBadgeState(execution)
     const color = badgeColors[state]
 
-    const label = resolveBadgeLabel(state, execution.suspended)
+    const suspended = 'suspended' in execution ? execution.suspended : false
+    const label = resolveBadgeLabel(state, suspended)
 
     return (
         <Chip
