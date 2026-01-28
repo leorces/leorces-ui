@@ -1,16 +1,34 @@
 import Typography from '@mui/material/Typography'
-import {Alert, Box, CircularProgress, Container} from '@mui/material'
+import {Alert, Box, Button, CircularProgress, Container} from '@mui/material'
+import {useNavigate} from 'react-router-dom'
 import {useJobs} from './hooks/useJobs.ts'
 import JobsTable from './components/JobsTable.tsx'
 
 export default function JobsPage() {
     const {data, loading, error, setParams} = useJobs()
+    const navigate = useNavigate()
 
     return (
         <Container sx={{p: 3}}>
-            <Typography variant="h4" gutterBottom>
-                Jobs
-            </Typography>
+            <Box
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    mb: 2
+                }}
+            >
+                <Typography variant="h4">
+                    Jobs
+                </Typography>
+
+                <Button
+                    variant="contained"
+                    onClick={() => navigate('/jobs/run')}
+                >
+                    Run job
+                </Button>
+            </Box>
 
             {error && (
                 <Alert severity="error" sx={{mb: 2}}>

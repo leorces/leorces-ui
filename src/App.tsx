@@ -10,6 +10,7 @@ import ProcessDetailsPage from './features/process/ProcessDetailsPage.tsx'
 import ProcessesPage from './features/process/ProcessesPage.tsx'
 import JobsPage from './features/jobs/JobsPage.tsx'
 import JobDetailsPage from './features/jobs/JobDetailsPage.tsx'
+import RunJobPage from './features/jobs/RunJobPage.tsx'
 
 function App() {
     return (
@@ -21,6 +22,7 @@ function App() {
                 <Route path="definitions" element={<DefinitionsPage/>}/>
                 <Route path="definitions/:definitionId" element={<DefinitionDetailsPage/>}/>
                 <Route path="jobs" element={<JobsPage/>}/>
+                <Route path="jobs/run" element={<RunJobPage/>}/>
                 <Route path="jobs/:jobId" element={<JobDetailsPage/>}/>
             </Route>
         </Routes>
