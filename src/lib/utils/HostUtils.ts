@@ -1,6 +1,6 @@
 export default function getBaseName(): string {
     const path = window.location.pathname
-    const knownRoutes = ['definitions', 'processes']
+    const knownRoutes = ['definitions', 'processes', 'jobs']
     const segments = path.split('/').filter(Boolean)
     const index = segments.findIndex(s => knownRoutes.includes(s))
 
