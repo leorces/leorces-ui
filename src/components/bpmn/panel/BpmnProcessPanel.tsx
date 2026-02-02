@@ -6,6 +6,7 @@ import TimeProperty from './property/TimeProperty.tsx'
 import VariablesProperty from './property/VariablesProperty.tsx'
 import PropertiesAccordion from './property/PropertiesAccordion'
 import ProcessActions from './actions/ProcessActions.tsx'
+import LinkProperty from './property/LinkProperty.tsx'
 
 interface BpmnProcessPanelProps {
     selection: BpmnElementSelection;
@@ -48,6 +49,11 @@ export default function BpmnProcessPanel({selection}: BpmnProcessPanelProps) {
                 <PropertiesAccordion title="Execution" defaultExpanded>
                     <BaseProperty property="ID" value={process?.id}/>
                     <BaseProperty property="Business Key" value={process?.businessKey}/>
+                    {process?.parentId && <LinkProperty link={`/processes/${process.parentId}`} property="Parent ID"
+                                                        value={process.parentId}/>}
+                    {process?.rootProcessId &&
+                        <LinkProperty link={`/processes/${process.rootProcessId}`} property="Root ID"
+                                      value={process.parentId}/>}
                     <TimeProperty property="Started" value={process?.startedAt}/>
                     <TimeProperty property="Completed" value={process?.completedAt}/>
                 </PropertiesAccordion>

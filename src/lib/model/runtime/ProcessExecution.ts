@@ -5,7 +5,8 @@ import type {ProcessDefinition} from '../definition/ProcessDefinition.ts'
 
 export interface ProcessExecution {
     id: string;
-    rootProcessId: string;
+    rootProcessId?: string;
+    parentId?: string;
     businessKey: string;
     variables: Variable[];
     activities: Activity[];
