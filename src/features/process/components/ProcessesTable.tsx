@@ -96,8 +96,9 @@ export default function ProcessesTable({data, loading, onSearchParamsChange}: Pr
                     <TableHead>
                         <TableRow>
                             <TableCell>ID</TableCell>
-                            <TableCell>Definition</TableCell>
                             <TableCell>Business Key</TableCell>
+                            <TableCell>Definition</TableCell>
+                            <TableCell>Version</TableCell>
                             <TableCell>State</TableCell>
                             <TableCell>Started</TableCell>
                             <TableCell>Completed</TableCell>
@@ -112,12 +113,15 @@ export default function ProcessesTable({data, loading, onSearchParamsChange}: Pr
                                             {process.id}
                                         </AppLink>
                                     </TableCell>
+                                    <TableCell>{process.businessKey}</TableCell>
                                     <TableCell>
                                         <AppLink href={`/definitions/${process.definition.id}`}>
                                             {process.definition.name}
                                         </AppLink>
                                     </TableCell>
-                                    <TableCell>{process.businessKey}</TableCell>
+                                    <TableCell>
+                                        {process.definition.version}
+                                    </TableCell>
                                     <TableCell>
                                         <StateBadge execution={process}/>
                                     </TableCell>
