@@ -142,7 +142,7 @@ export default function VariablesProperty({process, executionId, variables}: Var
                             onChange={(e) => handleNewVariableChange(index, 'key', e.target.value)}
                             fullWidth
                             slotProps={{
-                                inputLabel: {shrink: true}
+                                inputLabel: {shrink: true, sx: {fontSize: 20}}
                             }}
                         />
                         <TextField
@@ -153,7 +153,7 @@ export default function VariablesProperty({process, executionId, variables}: Var
                             onChange={(e) => handleNewVariableChange(index, 'value', e.target.value)}
                             fullWidth
                             slotProps={{
-                                inputLabel: {shrink: true}
+                                inputLabel: {shrink: true, sx: {fontSize: 20}}
                             }}
                         />
                         <Divider/>

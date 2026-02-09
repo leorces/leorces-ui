@@ -19,26 +19,38 @@ svg[data-element-id^="Collaboration_"]:focus {
 
 .djs-element.status-completed > .djs-visual > *:first-child {
     stroke: var(--color-success) !important;
+    fill: var(--color-success) !important;
+    fill-opacity: 0.2 !important;
 }
 
 .djs-element.status-active > .djs-visual > *:first-child {
     stroke: var(--color-primary) !important;
+    fill: var(--color-primary) !important;
+    fill-opacity: 0.2 !important;
 }
 
 .djs-element.status-scheduled > .djs-visual > *:first-child {
     stroke: var(--color-secondary) !important;
+    fill: var(--color-secondary) !important;
+    fill-opacity: 0.2 !important;
 }
 
 .djs-element.status-incident > .djs-visual > *:first-child {
     stroke: var(--color-danger) !important;
+    fill: var(--color-danger) !important;
+    fill-opacity: 0.2 !important;
 }
 
 .djs-element.status-failed > .djs-visual > *:first-child {
     stroke: var(--color-danger) !important;
+    fill: var(--color-danger) !important;
+    fill-opacity: 0.2 !important;
 }
 
 .djs-element.status-terminated > .djs-visual > *:first-child {
     stroke: var(--color-warning) !important;
+    fill: var(--color-warning) !important;
+    fill-opacity: 0.2 !important;
 }
 
 .djs-element.selected-element > .djs-visual > *:first-child {

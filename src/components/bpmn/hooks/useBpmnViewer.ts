@@ -12,9 +12,10 @@ export function useBpmnViewer(containerRef: RefObject<HTMLDivElement>, schema: s
     useEffect(() => {
         if (!containerRef.current || !schema) return
 
+        const container = containerRef.current
+
         const viewer = new Viewer({
-            container: containerRef.current,
-            mouse: {bindTo: document},
+            container,
             additionalModules: [
                 ZoomScrollModule,
                 MoveCanvasModule
@@ -23,10 +24,12 @@ export function useBpmnViewer(containerRef: RefObject<HTMLDivElement>, schema: s
 
         viewerRef.current = viewer
 
+        const canvas = viewer.get<Canvas>('canvas')
+
         viewer.importXML(schema)
             .then(() => {
-                const canvas = viewer.get<Canvas>('canvas')
                 canvas.zoom('fit-viewport', 'auto')
+                canvas.focus()
             })
             .catch(() => {
                 // ignore errors, we don't want to block rendering if the BPMN is invalid'

@@ -49,7 +49,7 @@ export default function VariableProperty({canChange, variable, onChange}: Variab
                     }
                 }}
                 slotProps={{
-                    inputLabel: {shrink: true}
+                    inputLabel: {shrink: true, sx: {fontSize: 20}}
                 }}
             />
         </Box>
