@@ -1,5 +1,5 @@
 import Typography from '@mui/material/Typography'
-import {Alert, Box, CircularProgress, Container} from '@mui/material'
+import {Alert, Box, CircularProgress} from '@mui/material'
 import ProcessesTable from './components/ProcessesTable.tsx'
 import {useProcesses} from './hooks/useProcesses.ts'
 
@@ -7,7 +7,7 @@ export default function ProcessesPage() {
     const {data, loading, error, setParams} = useProcesses()
 
     return (
-        <Container sx={{p: 3}}>
+        <Box sx={{p: 3}}>
             <Typography variant="h4" gutterBottom>
                 Processes
             </Typography>
@@ -29,6 +29,6 @@ export default function ProcessesPage() {
                     onSearchParamsChange={setParams}
                 />
             )}
-        </Container>
+        </Box>
     )
 }

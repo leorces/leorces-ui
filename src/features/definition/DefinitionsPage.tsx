@@ -1,4 +1,4 @@
-import {Alert, Box, CircularProgress, Container, Typography} from '@mui/material'
+import {Alert, Box, CircularProgress, Typography} from '@mui/material'
 import DefinitionsTable from './components/DefinitionsTable.tsx'
 import {useDefinitions} from './hooks/useDefinitions.ts'
 
@@ -6,7 +6,7 @@ export default function DefinitionsPage() {
     const {data, loading, error, setSearchParams} = useDefinitions()
 
     return (
-        <Container sx={{p: 3}}>
+        <Box sx={{p: 3}}>
             <Typography variant="h4" gutterBottom>
                 Definitions
             </Typography>
@@ -28,6 +28,6 @@ export default function DefinitionsPage() {
                     onSearchParamsChange={setSearchParams}
                 />
             )}
-        </Container>
+        </Box>
     )
 }

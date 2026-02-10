@@ -6,7 +6,6 @@ import {
     Alert,
     Box,
     CircularProgress,
-    Container,
     Paper,
     Stack,
     Table,
@@ -90,7 +89,7 @@ export default function JobDetailsPage() {
     )
 
     return (
-        <Container sx={{p: 3}}>
+        <Box sx={{p: 3}}>
             <Stack spacing={2}>
                 {/* Header */}
                 <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -148,6 +147,6 @@ export default function JobDetailsPage() {
                 <KeyValueTable title="Input" data={job.input}/>
                 <KeyValueTable title="Output" data={job.output}/>
             </Stack>
-        </Container>
+        </Box>
     )
 }

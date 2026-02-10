@@ -1,5 +1,5 @@
 import Typography from '@mui/material/Typography'
-import {Alert, Box, Button, CircularProgress, Container} from '@mui/material'
+import {Alert, Box, Button, CircularProgress} from '@mui/material'
 import {useNavigate} from 'react-router-dom'
 import {useJobs} from './hooks/useJobs.ts'
 import JobsTable from './components/JobsTable.tsx'
@@ -9,7 +9,7 @@ export default function JobsPage() {
     const navigate = useNavigate()
 
     return (
-        <Container sx={{p: 3}}>
+        <Box sx={{p: 3}}>
             <Box
                 sx={{
                     display: 'flex',
@@ -47,6 +47,6 @@ export default function JobsPage() {
                     onSearchParamsChange={setParams}
                 />
             )}
-        </Container>
+        </Box>
     )
 }
