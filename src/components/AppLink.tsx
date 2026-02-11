@@ -1,5 +1,5 @@
 import React, {type ReactNode} from 'react'
-import {useNavigate} from 'react-router'
+import {useHref, useNavigate} from 'react-router'
 import {Link as MuiLink} from '@mui/material'
 
 interface AppLinkProps {
@@ -9,6 +9,7 @@ interface AppLinkProps {
 
 export default function AppLink({href, children}: AppLinkProps) {
     const navigate = useNavigate()
+    const fullHref = useHref(href)
 
     const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
         event.preventDefault()
@@ -16,7 +17,7 @@ export default function AppLink({href, children}: AppLinkProps) {
     }
 
     return (
-        <MuiLink component="a" href={href} underline="hover" onClick={handleClick}>
+        <MuiLink component="a" href={fullHref} underline="hover" onClick={handleClick}>
             {children}
         </MuiLink>
     )

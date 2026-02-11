@@ -30,4 +30,3 @@ export default function BpmnSchemaViewer({schema, activities, onSelectedElementC
         </Box>
     )
 }
-
