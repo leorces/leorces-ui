@@ -1,10 +1,9 @@
-import Typography from '@mui/material/Typography'
-import {Alert, Box, CircularProgress} from '@mui/material'
+import {Alert, Box, CircularProgress, Typography} from '@mui/material'
 import ProcessesTable from './components/ProcessesTable.tsx'
 import {useProcesses} from './hooks/useProcesses.ts'
 
 export default function ProcessesPage() {
-    const {data, loading, error, setParams} = useProcesses()
+    const {data, loading, error, setSearchParams} = useProcesses()
 
     return (
         <Box sx={{p: 3}}>
@@ -26,7 +25,7 @@ export default function ProcessesPage() {
                 <ProcessesTable
                     data={data}
                     loading={loading}
-                    onSearchParamsChange={setParams}
+                    onSearchParamsChange={setSearchParams}
                 />
             )}
         </Box>

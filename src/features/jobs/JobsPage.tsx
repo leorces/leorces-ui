@@ -5,7 +5,7 @@ import {useJobs} from './hooks/useJobs.ts'
 import JobsTable from './components/JobsTable.tsx'
 
 export default function JobsPage() {
-    const {data, loading, error, setParams} = useJobs()
+    const {data, loading, error, setSearchParams} = useJobs()
     const navigate = useNavigate()
 
     return (
@@ -44,7 +44,7 @@ export default function JobsPage() {
                 <JobsTable
                     data={data}
                     loading={loading}
-                    onSearchParamsChange={setParams}
+                    onSearchParamsChange={setSearchParams}
                 />
             )}
         </Box>

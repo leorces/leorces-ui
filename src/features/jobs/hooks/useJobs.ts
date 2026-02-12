@@ -4,45 +4,40 @@ import type {PageableData} from '../../../lib/model/pagination/PageableData.ts'
 import type {Job} from '../../../lib/model/job/Job.ts'
 import {fetchJobs} from '../../../lib/rest/AdminClient.ts'
 
-export function useJobs(initialParams: Pageable = {page: 0, limit: 10}) {
+export function useJobs(initialPage = 0, initialLimit = 10) {
     const [data, setData] = useState<PageableData<Job> | null>(null)
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
-    const [params, setParams] = useState<Pageable>(initialParams)
+    const [page, setPage] = useState(initialPage)
+    const [rowsPerPage, setRowsPerPage] = useState(initialLimit)
+    const [state, setState] = useState<string | undefined>(undefined)
+    const [filter, setFilter] = useState<string | undefined>(undefined)
 
     const loadData = useCallback(() => {
         setLoading(true)
         setError(null)
 
-        const effectiveParams: Pageable = {
-            ...params,
-            state: params.state && params.state !== 'All' ? params.state.toUpperCase() : undefined
-        }
+        const params: Pageable = {page, limit: rowsPerPage}
+        if (filter) params.filter = filter
+        if (state) params.state = state.toUpperCase()
 
-        fetchJobs(effectiveParams)
+        fetchJobs(params)
             .then(setData)
-            .catch(() => {
-                setError('Failed to load jobs')
-                setData(null)
-            })
+            .catch(() => setError('Failed to load processes'))
             .finally(() => setLoading(false))
-    }, [params])
+    }, [page, rowsPerPage, state, filter])
 
     useEffect(() => {
         loadData()
     }, [loadData])
 
-    const updateParams = useCallback((newParams: Pageable) => {
-        setParams((prev) => {
-            const next = {...prev, ...newParams}
-
-            if (newParams.limit && newParams.limit !== prev.limit) {
-                next.page = 0
-            }
-
-            return next
-        })
+    const setSearchParams = useCallback((pageable: Pageable) => {
+        const {page: newPage = 0, limit = 10, state: newState, filter: newFilter} = pageable
+        setPage(newPage)
+        setRowsPerPage(limit)
+        setFilter(newFilter)
+        setState(newState)
     }, [])
 
-    return {data, loading, error, params, setParams: updateParams, reload: loadData}
+    return {data, loading, error, page, rowsPerPage, filter, setSearchParams, reload: loadData}
 }
