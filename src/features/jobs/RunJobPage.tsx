@@ -7,6 +7,7 @@ import {runJob} from '../../lib/rest/AdminClient'
 import {ServerError} from '../../lib/rest/error/ServerError'
 import AppSnackbar from '../../components/AppSnackbar'
 import CompactionJobForm from './components/form/CompactionJobForm.tsx'
+import SuspendResumeJobForm from './components/form/SuspendResumeJobForm.tsx'
 
 export interface JobFormProps<T = JobPayload> {
     onChange: (payload: T | null) => void
@@ -91,6 +92,12 @@ export default function RunJobPage() {
                         label="Job type"
                         onChange={handleJobTypeChange}
                     >
+                        <MenuItem value="PROCESS_SUSPEND">
+                            Suspend processes
+                        </MenuItem>
+                        <MenuItem value="PROCESS_RESUME">
+                            Resume processes
+                        </MenuItem>
                         <MenuItem value="PROCESS_MIGRATION">
                             Process Migration
                         </MenuItem>
@@ -106,6 +113,10 @@ export default function RunJobPage() {
 
                 {jobType === 'COMPACTION' && (
                     <CompactionJobForm onChange={setPayload}/>
+                )}
+
+                {(jobType === 'PROCESS_SUSPEND' || jobType === 'PROCESS_RESUME') && (
+                    <SuspendResumeJobForm onChange={setPayload}/>
                 )}
 
                 <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>

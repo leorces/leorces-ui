@@ -84,6 +84,7 @@ export default function DefinitionsTable({data, loading, onSearchParamsChange}: 
                             <TableCell>Name</TableCell>
                             <TableCell>Key</TableCell>
                             <TableCell>Version</TableCell>
+                            <TableCell>Suspended</TableCell>
                             <TableCell>Created</TableCell>
                         </TableRow>
                     </TableHead>
@@ -94,7 +95,7 @@ export default function DefinitionsTable({data, loading, onSearchParamsChange}: 
                             ))
                         ) : !loading ? (
                             <TableRow>
-                                <TableCell colSpan={6} align="center">
+                                <TableCell colSpan={7} align="center">
                                     No definitions found
                                 </TableCell>
                             </TableRow>

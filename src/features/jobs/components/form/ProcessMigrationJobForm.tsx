@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import {Button, TextField, Typography} from '@mui/material'
 import Box from '@mui/material/Box'
-import type {ProcessMigrationPlan} from '../../../../lib/model/job/migration/ProcessMigrationPlan.ts'
+import type {ProcessMigrationPlan} from '../../../../lib/model/job/payload/ProcessMigrationPlan.ts'
 import {generateProcessMigrationPlan} from '../../../../lib/rest/AdminClient.ts'
 import {ServerError} from '../../../../lib/rest/error/ServerError.ts'
 import AppSnackbar from '../../../../components/AppSnackbar.tsx'

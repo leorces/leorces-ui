@@ -23,6 +23,7 @@ export default function DefinitionsTableRow({group}: DefinitionsTableRowProps) {
             <TableCell>{data.name}</TableCell>
             <TableCell>{data.key}</TableCell>
             <TableCell>{data.version}</TableCell>
+            <TableCell>{JSON.stringify(data.suspended)}</TableCell>
             <TableCell>{data.createdAt ? format(data.createdAt) : '-'}</TableCell>
         </>
     )
@@ -41,7 +42,7 @@ export default function DefinitionsTableRow({group}: DefinitionsTableRowProps) {
                 {renderRow(group.latest)}
             </TableRow>
             <TableRow>
-                <TableCell colSpan={6} sx={{padding: 0}}>
+                <TableCell colSpan={7} sx={{padding: 0}}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Box sx={{margin: 1}}>
                             <Typography variant="h6" gutterBottom>
@@ -54,6 +55,7 @@ export default function DefinitionsTableRow({group}: DefinitionsTableRowProps) {
                                         <TableCell>Name</TableCell>
                                         <TableCell>Key</TableCell>
                                         <TableCell>Version</TableCell>
+                                        <TableCell>Suspended</TableCell>
                                         <TableCell>Created</TableCell>
                                     </TableRow>
                                 </TableHead>

@@ -7,6 +7,7 @@ import VariablesProperty from './property/VariablesProperty.tsx'
 import PropertiesAccordion from './property/PropertiesAccordion'
 import ProcessActions from './actions/ProcessActions.tsx'
 import LinkProperty from './property/LinkProperty.tsx'
+import ProcessDefinitionActions from './actions/ProcessDefinitionActions.tsx'
 
 interface BpmnProcessPanelProps {
     selection: BpmnElementSelection;
@@ -31,7 +32,8 @@ export default function BpmnProcessPanel({selection}: BpmnProcessPanelProps) {
                 <Typography variant="body1" sx={{color: 'text.secondary'}}>
                     {processDefinition.name || processDefinition.id}
                 </Typography>
-                <ProcessActions process={process}/>
+                {selection.isExecution() && <ProcessActions process={process}/>}
+                {!selection.isExecution() && <ProcessDefinitionActions definition={processDefinition}/>}
             </Box>
 
             <Divider/>

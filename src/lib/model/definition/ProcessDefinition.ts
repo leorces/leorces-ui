@@ -11,6 +11,7 @@ export interface ProcessDefinition {
     messages: string[];
     errors: ErrorItem[];
     metadata: ProcessDefinitionMetadata;
+    suspended: boolean;
     createdAt: string;
     updatedAt: string;
 }
